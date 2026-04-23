@@ -1,0 +1,14 @@
+<div class="sticky top-0 z-10 w-full m-auto flex items-center justify-center px-5 min-[1530px]:px-0 bg-[#ebecf0]">
+  <div class="h-[8vh] w-full lg:w-375 px-5 grid grid-cols-[auto_0.8fr_auto_auto]  items-center mt-2 justify-between glass rounded-xl text-colorPrincipal">
+    <div>icono</div>
+    <div class="max-w-150">
+       <input type="search" name="busqueda" id="busquedad" class="py-1 presion w-full border-none hover:cursor-pointer" placeholder="Busca tu producto aqui..."/> 
+    </div>
+    <div class="grid grid-cols-3 gap-4 w-fit font-semibold">
+        <p class="text-center py-1 presion cursor-pointer" [routerLink]="'/'">Galeria</p>
+        <p class="text-center py-1 px-2 sinpresion cursor-pointer" [routerLink]="'/colecciones'">Colecciones</p>
+        <p class="text-center py-1 sinpresion cursor-pointer" [routerLink]="'/about'">Ayuda</p>
+    </div>
+    <div>auth y carrito</div>
+  </div>
+</div> 

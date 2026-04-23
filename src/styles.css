@@ -1,3 +1,21 @@
 /* You can add global styles to this file, and also import other style files */
 
 @import 'tailwindcss';
+
+@theme {
+  --color-colorPrincipal: #b901cc;
+}
+
+@layer components {
+  .glass {
+    @apply bg-[#ebecf0] backdrop-blur-xl border border-black/10 shadow-[0px_0px_25px_#b8bec7,0px_0px_25px_#ffffff]
+  }
+
+  .presion {
+    @apply rounded-2xl bg-gradient-to-b from-gray-100 to-gray-50 px-5 py-4 shadow-[inset_0_0_15px_rgba(0,0,0,0.2)]
+  }
+
+  .sinpresion {
+    @apply rounded-2xl bg-gradient-to-b from-gray-100 to-gray-200 px-5 py-4 shadow-[0_0_15px_rgba(0,0,0,0.15)]
+  }
+}

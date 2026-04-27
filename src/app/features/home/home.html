@@ -1,22 +1,72 @@
-<div class="h-screen bg-white flex items-center justify-center w-full">
-    <div class="grid grid-cols-2 gap-4">
-        <div class="grid grid-cols-1 gap-4">
-            <div>
-                coleccion 1
-            </div>
-            <div>
-                Vibras y ruidos
-            </div>
-            <div>
-                parafo
-            </div>
-            <div>
-                botonera
-            </div>
-        </div>
-
+<div class="bg-white flex flex-col items-center justify-center w-full">
+  <div class="h-[92vh] flex flex-col items-center justify-center">
+    <div class="grid grid-cols-2 gap-7 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex flex-col gap-4 justify-center">
         <div>
-            imagenes
+          <button class="icon-neumorphic text-primary">
+            ✨ coleccion {{ datos[cambiarIndex - 1].id }} de 4
+          </button>
         </div>
+        <div>
+          <p class="text-5xl md:text-7xl font-bold text-foreground leading-tight text-balance">
+            {{ datos[cambiarIndex - 1].nombre }}
+          </p>
+          <p class="text-lg md:text-xl text-foreground/70 text-balance max-w-xl mt-5">
+            {{ datos[cambiarIndex - 1].descripcion }}
+          </p>
+        </div>
+        <div class="mt-5">
+          <button
+            class="btn-neumorphic-primary px-8 cursor-pointer"
+            routerLink="'/coleccion/{{ cambiarIndex }}"
+          >
+            Explora Coleccion
+          </button>
+          <button class="btn-neumorphic-primary px-8 ml-4 cursor-pointer" routerLink="'/coleccion">
+            Ver Todos
+          </button>
+        </div>
+      </div>
+
+      <div>
+        <img
+          src="{{ datos[cambiarIndex - 1].imagen }}"
+          alt="Imagen de la coleccion"
+          class="w-full h-145 object-cover rounded-2xl"
+        />
+      </div>
     </div>
+
+    <div
+      class="flex flex-row justify-between items-center w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-5"
+    >
+      <button
+        class="icon-neumorphic cursor-pointer text-gray-400 hover:text-primary"
+        (click)="cambiarIndexAnterior()"
+      >
+        <svg lucideChevronLeft class="w-6 h-6"></svg>
+      </button>
+      <div className="flex">
+        @for (item of datos; track $index) {
+            <button
+                (click)="elegirIndex(item.id)"
+                [ngClass]="{
+                'w-8 bg-primary': cambiarIndex === (item.id),
+                'w-3 bg-primary/30 hover:bg-primary/50': cambiarIndex !== (item.id),
+                }"
+                class="rounded-full mr-1 transition-all h-3"
+            ></button>
+        }
+      </div>
+
+      <button
+        class="icon-neumorphic cursor-pointer text-gray-400 hover:text-primary"
+        (click)="cambiarIndexSiguiente()"
+      >
+        <svg lucideChevronRight class="w-6 h-6"></svg>
+      </button>
+    </div>
+  </div>
+
+  <div class="h-screen">olasd</div>
 </div>

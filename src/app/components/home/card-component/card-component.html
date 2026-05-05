@@ -1,0 +1,11 @@
+<div
+  [ngClass]="[
+    'grid grid-cols-1 gap-5 card-neumorphic bg-linear-to-br border-white/20 hover:-translate-y-1',
+    datos()?.color,
+  ]"
+  [routerLink]="datos()?.id ? ['/colecciones', datos()?.id] : ['/']"
+>
+  <svg [lucideIcon]="datos()?.icono ?? null" class="w-10 h-10 text-[#1a95ad] mb-2.5"></svg>
+  <p class="font-bold text-2xl">{{ datos()?.nombre }}</p>
+  <p class="text-[15px] text-foreground/70">{{ datos()?.descripcion }}</p>
+</div>

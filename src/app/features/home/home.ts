@@ -1,12 +1,14 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
-import { LucideChevronLeft, LucideChevronRight } from '@lucide/angular';
+import { LucideChevronLeft, LucideChevronRight, LucideSparkle } from '@lucide/angular';
 import { DatosCarrusel, HomePrincipal } from '../../types/homePrincipal';
 import { RouterLink } from '@angular/router';
 import { NgClass } from '@angular/common';
+import { CardGeneral, DatosCardGeneral, DatosCardSecundario } from '../../types/cardGeneral';
+import { CardComponent } from "../../components/home/card-component/card-component";
 
 @Component({
   selector: 'app-home',
-  imports: [LucideChevronLeft, LucideChevronRight, RouterLink, NgClass],
+  imports: [LucideChevronLeft, LucideChevronRight, RouterLink, NgClass, CardComponent],
   templateUrl: './home.html',
   styleUrl: './home.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -14,6 +16,8 @@ import { NgClass } from '@angular/common';
 export class HomeComponent implements OnInit, OnDestroy {
   cambiarIndex: number = 1;
   datos: HomePrincipal[] = DatosCarrusel;
+  cardPrincipal: CardGeneral[] = DatosCardGeneral;
+  cardSecu: CardGeneral[] = DatosCardSecundario;
   intervalo: any;
 
   constructor(private cdr: ChangeDetectorRef) {}

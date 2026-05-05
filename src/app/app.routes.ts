@@ -10,6 +10,8 @@ export const routes: Routes = [
     component: LayoutPrincipal,
     children: [
       { path: '', component: HomeComponent }, // index
+      { path: 'colecciones', component: HomeComponent },
+      { path: 'colecciones/:id', component: HomeComponent },
       //{ path: 'search', component: SearchComponent },
     ],
   },

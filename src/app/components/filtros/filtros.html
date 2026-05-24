@@ -1,1 +1,44 @@
-<p>filtros works!</p>
+<div class="w-[35vh] flex flex-col gap-5 px-3">
+  <div class="flex w-full justify-between items-center">
+    <p class="text-[20px] font-bold">Filtros</p>
+    @if (isActiveClean) {
+      <button class="text-[#1a95ad] hover:underline cursor-pointer">Limpiar</button>
+    }
+  </div>
+  <div class="flex flex-col w-full gap-2">
+    <p class="text-[17px] font-semibold">Precio</p>
+    <mat-slider min="0" max="1000" step="10">
+        <input matSliderStartThumb [(ngModel)]='isMinPrice'>
+        <input matSliderEndThumb [(ngModel)]='isMaxPrice'>
+    </mat-slider>
+    <p>${{ isMinPrice }} - ${{ isMaxPrice }}</p>
+  </div>
+  <div class="flex flex-col w-full gap-3">
+    <p class="text-[17px] font-semibold">Categorías</p>
+    <div class="flex flex-row gap-2 w-full items-center px-2">
+        <input type="checkbox" name="categoria1" id="categoria1">
+        <label for="categoria1" class="text[15px] font-medium">Hombres</label>
+    </div>
+    <div class="flex flex-row gap-2 w-full items-center px-2">
+        <input type="checkbox" name="categoria1" id="categoria1">
+        <label for="categoria1" class="text[15px] font-medium">Mujeres</label>
+    </div>
+    <div class="flex flex-row gap-2 w-full items-center px-2">
+        <input type="checkbox" name="categoria1" id="categoria1" class="bg-[#1a95ad] text-white icon-neumorphic">
+        <label for="categoria1" class="text[15px] font-medium">Niños</label>
+    </div>
+  </div>
+  <div class="flex flex-col w-full gap-3">
+    <p class="text-[17px] font-semibold">Tallas</p>
+    <div class="grid grid-cols-3 gap-2 w-full items-center px-2">
+        @for (talla of tallas; track $index) {
+            <button class="border-2 border-[#1a95ad] cursor-pointer icon-neumorphic py-1 rounded-[12px] hover:font-semibold"
+                [ngClass]="{
+                'bg-[#1a95ad] text-white': paran.includes(talla.id),
+                'bg-white': !paran.includes(talla.id),
+                }" 
+            (click)="toggleTalla(talla.id)">{{ talla.label }}</button>
+        }
+    </div>  
+  </div>
+</div>

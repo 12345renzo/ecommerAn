@@ -1,10 +1,12 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { LucideChevronLeft, LucideChevronRight, LucideSparkle } from '@lucide/angular';
-import { DatosCarrusel, HomePrincipal } from '../../types/homePrincipal';
+import { HomePrincipal } from '../../types/homePrincipal';
 import { RouterLink } from '@angular/router';
 import { NgClass } from '@angular/common';
-import { CardGeneral, DatosCardGeneral, DatosCardSecundario } from '../../types/cardGeneral';
+import { CardGeneral } from '../../types/cardGeneral';
 import { CardComponent } from "../../components/home/card-component/card-component";
+import { DatosCardGeneral, DatosCardSecundario } from '../../data/dataCardMock';
+import { DatosCarrusel } from '../../data/carruselMock';
 
 @Component({
   selector: 'app-home',

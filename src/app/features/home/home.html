@@ -18,7 +18,7 @@
         <div class="mt-5 flex flex-col justify-center lg:justify-start md:flex-row gap-4">
           <button
             class="btn-neumorphic-primary px-8 cursor-pointer"
-            routerLink="'/coleccion/{{ cambiarIndex }}"
+            [routerLink]="'/coleccion/' + cambiarIndex"
           >
             Explora Coleccion
           </button>
@@ -46,7 +46,7 @@
       >
         <svg lucideChevronLeft class="w-6 h-6"></svg>
       </button>
-      <div className="flex">
+      <div class="flex">
         @for (item of datos; track $index) {
             <button
                 (click)="elegirIndex(item.id)"

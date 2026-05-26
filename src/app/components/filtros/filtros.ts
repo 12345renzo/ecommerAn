@@ -1,8 +1,9 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatSliderModule } from '@angular/material/slider';
-import { Size, sizes } from '../../types/tallasTypes';
+import { Size } from '../../types/tallasTypes';
 import { NgClass } from '@angular/common';
+import { sizes } from '../../data/tallasMock';
 
 
 @Component({

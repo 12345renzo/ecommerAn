@@ -1,0 +1,35 @@
+<div class="w-full flex flex-row items-center justify-center gap-4 mt-3">
+  <button
+    class="icon-neumorphic text-gray-600 font-medium"
+    [ngClass]="{
+      'cursor-not-allowed': constador() === 1,
+      'cursor-pointer hover:text-primary': constador() !== 1,
+    }"
+    (click)="anterior()"
+    [disabled]="constador() === 1"
+  >
+    Anterior
+  </button>
+  @for (page of paginas(); track $index) {
+    <button
+      class="icon-neumorphic text-gray-600 font-medium cursor-pointer"
+      [ngClass]="{
+      'bg-primary text-white': constador() === page,
+      'bg-white hover:text-primary': constador() !== page,
+    }"
+      (click)="elegido(page)"
+    >
+      {{ page }}
+    </button>
+  }
+  <button
+    class="icon-neumorphic text-gray-600 font-medium"
+    [ngClass]="{
+      'cursor-not-allowed': constador() === pageTotal(),
+      'cursor-pointer hover:text-primary': constador() !== pageTotal(),
+    }"
+    (click)="siguiente()"
+  >
+    Siguiente
+  </button>
+</div>

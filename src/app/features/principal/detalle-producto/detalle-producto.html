@@ -1,1 +1,71 @@
-<p>detalle-producto works!</p>
+<div class="w-full flex flex-col items-center justify-center">
+  <div class="w-full max-w-7xl px-5 sm:px-6 lg:px-8 py-6 mx-auto">
+    <div class="grid grid-cols-2 gap-4 my-4">
+      <div class="flex flex-col gap-5 justify-center">
+        <div class="bg-red-500 w-full rounded-xl h-[80vh]">img principal</div>
+
+        <div class="grid grid-cols-4 gap-4">
+          <div
+            class="bg-red-500 w-full rounded-xl h-[15vh] cursor-pointer transition-all hover:translate-y-1"
+          >
+            foto1
+          </div>
+          <div
+            class="bg-red-500 w-full rounded-xl h-[15vh] cursor-pointer transition-all hover:translate-y-1"
+          >
+            foto1
+          </div>
+          <div
+            class="bg-red-500 w-full rounded-xl h-[15vh] cursor-pointer transition-all hover:translate-y-1"
+          >
+            foto1
+          </div>
+          <div
+            class="bg-red-500 w-full rounded-xl h-[15vh] cursor-pointer transition-all hover:translate-y-1"
+          >
+            foto1
+          </div>
+        </div>
+      </div>
+      <div class="flex flex-col gap-5 px-4">
+        <p class="text-3xl font-bold text-[#1a95ad]">Nombre del producto</p>
+        <p class="text-2xl font-bold text-[#1a95ad]">$ 200.00</p>
+        <p class="text-[17px] text-gray-600">
+          Experience superior audio quality with our Premium Wireless Headphones. Featuring noise
+          cancellation technology, 30-hour battery life, and premium comfort design.
+        </p>
+        <p class="text-lg font-semibold">Cantidad</p>
+        <div class="flex flex-row gap-4 items-center">
+          <button
+            class="bg-[#1a95ad] text-white py-1 px-4 rounded-lg hover:bg-[#157a8f] cursor-pointer transition-all"
+            (click)="disminuirCantidad()"
+          >
+            -
+          </button>
+          <p>{{ cantidad() }}</p>
+          <button
+            class="bg-[#1a95ad] text-white py-1 px-4 rounded-lg hover:bg-[#157a8f] cursor-pointer transition-all"
+            (click)="aumentarCantidad()"
+          >
+            +
+          </button>
+        </div>
+        <p class="text-lg font-semibold">Tallas</p>
+        <div class="grid grid-cols-3 gap-2 w-full items-center px-2">
+          @for (talla of tallas; track $index) {
+            <button
+              class="border-2 border-[#1a95ad] cursor-pointer icon-neumorphic py-1 rounded-[12px] hover:font-semibold"
+              [ngClass]="{
+                'bg-[#1a95ad] text-white': tallaSeleccionada() === talla.id,
+                'bg-white': tallaSeleccionada() !== talla.id,
+                }"
+              (click)="seleccionTalla(talla.id)"
+            >
+              {{ talla.label }}
+            </button>
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

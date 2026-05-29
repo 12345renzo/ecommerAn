@@ -58,13 +58,30 @@
               [ngClass]="{
                 'bg-[#1a95ad] text-white': tallaSeleccionada() === talla.id,
                 'bg-white': tallaSeleccionada() !== talla.id,
-                }"
+              }"
               (click)="seleccionTalla(talla.id)"
             >
               {{ talla.label }}
             </button>
           }
         </div>
+
+        <div class="flex flex-row gap-4 items-center">
+          <p class="text-lg font-semibold">Monto total:</p>
+          <p class="text-xl font-bold text-[#1a95ad]">${{ montoTotal() }}</p>
+        </div>
+
+        <button
+          class="border-2 border-[#1a95ad] icon-neumorphic py-1 rounded-[12px] hover:font-semibold"
+          [ngClass]="{
+                'bg-[#1a95ad] text-white cursor-pointer': botonAgregarDeshabilitado() === false,
+                'bg-white text-black cursor-not-allowed': botonAgregarDeshabilitado() === true,
+              }"
+          [disabled]="botonAgregarDeshabilitado()"
+          (click)="agregarAlCarrito()"
+        >
+          Agregar al carrito
+        </button>
       </div>
     </div>
   </div>

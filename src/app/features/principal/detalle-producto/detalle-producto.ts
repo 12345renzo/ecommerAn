@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, signal } from '@angular/core';
 import { Size } from '../../../types/tallasTypes';
 import { sizes } from '../../../data/tallasMock';
 import { NgClass } from '@angular/common';
@@ -14,6 +14,7 @@ export class DetalleProductoComponent {
   tallas: Size[] = sizes;
   cantidad = signal<number>(0);
   tallaSeleccionada = signal<string | null>(null);
+
 
   aumentarCantidad(){
     this.cantidad.update((value) => value + 1);
@@ -32,5 +33,19 @@ export class DetalleProductoComponent {
       return;
     }
     this.tallaSeleccionada.update((value) => id);
+  }
+
+  botonAgregarDeshabilitado = computed(() => {
+    const tieneTalla = this.tallaSeleccionada() !== null;
+    const tieneCantidadValida = this.cantidad() > 0;
+    return !tieneTalla || !tieneCantidadValida;
+  });
+
+  montoTotal = computed(() => {
+    return this.cantidad() * 200;
+  });
+
+  agregarAlCarrito(){
+    console.log('agregar al carrito');
   }
 }

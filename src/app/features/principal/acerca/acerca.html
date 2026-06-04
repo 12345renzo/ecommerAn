@@ -1,0 +1,90 @@
+<div class="w-full flex flex-col items-center justify-center">
+  <div class="w-full max-w-7xl px-5 sm:px-6 lg:px-8 py-6 mx-auto">
+    <p class="text-xl md:text-4xl font-bold leading-tight text-[#1a95ad] mb-3 text-center mt-4">
+      Nuestra Historia
+    </p>
+    <p class="text-[15px] md:text-[18px] text-foreground/70 my-4 mb-10 text-center">
+      Creemos que la moda es más que simple ropa: es una forma de autoexpresión y una manera de
+      conectar con el mundo.
+    </p>
+    <div class="grid grid-cols-2 gap-4 my-4">
+      <div class="w-full flex flex-col p-5">
+        <p class="text-xl md:text-3xl font-bold leading-tight text-black mb-3">Nuestra Misión</p>
+        <p class="text-[15px] md:text-[16px] text-foreground/70 my-4 mb-10 tracking-wide">
+          ProStore se fundó con una misión sencilla: hacer que la moda de calidad sea accesible para
+          todos. Nos apasiona seleccionar colecciones que reflejen diversos estilos, valores y
+          aspiraciones. Cada prenda de nuestra tienda se elige con esmero, garantizando que no solo
+          compres moda, sino que inviertas en calidad duradera.
+        </p>
+        <button
+          class="border-2 w-fit border-[#1a95ad] icon-neumorphic py-1 px-5 rounded-[12px] hover:font-semibold cursor-pointer hover:bg-[#1a95ad] hover:text-white transition-all"
+        >
+          Ver más
+        </button>
+      </div>
+      <div class="w-full h-full p-5">
+        <img
+          src="/about.jpg"
+          alt="about"
+          class="w-full h-full object-cover rounded-xl cursor-pointer hover:scale-102 transition-all shadow-[0_0_15px_#1a95ad]"
+        />
+      </div>
+    </div>
+  </div>
+</div>
+<div class="w-full flex flex-col items-center justify-center bg-[#e2e2e2]">
+  <div class="w-full max-w-7xl px-5 sm:px-6 lg:px-8 py-6 mx-auto">
+    <p class="text-xl md:text-4xl font-bold leading-tight text-[#1a95ad] mb-3 text-center mt-4">
+      Conozca a nuestro equipo
+    </p>
+    <p class="text-[15px] md:text-[18px] text-foreground/70 my-4 mb-10 text-center">
+      Personas apasionadas dedicadas a ofrecer excelencia
+    </p>
+    <div class="grid grid-cols-4 gap-3">
+      @for (dato of datosEquipos; track $index) {
+        <app-card-team [datosCardTeam]="dato" />
+      }
+    </div>
+  </div>
+</div>
+<div class="w-full flex flex-col items-center justify-center">
+  <div class="w-full max-w-7xl px-5 sm:px-6 lg:px-8 py-20 mx-auto">
+    <div class="grid grid-cols-4 gap-4">
+      <div>
+        <p class="text-xl md:text-5xl font-bold leading-tight text-[#1a95ad] mb-3 text-center mt-4">
+          10K+
+        </p>
+        <p class="text-[15px] md:text-[20px] text-foreground/70 my-4 mb-10 text-center font-medium">
+          Clientes Felizes
+        </p>
+      </div>
+
+      <div>
+        <p class="text-xl md:text-5xl font-bold leading-tight text-[#1a95ad] mb-3 text-center mt-4">
+          2K+
+        </p>
+        <p class="text-[15px] md:text-[20px] text-foreground/70 my-4 mb-10 text-center font-medium">
+          Marcas de moda
+        </p>
+      </div>
+
+      <div>
+        <p class="text-xl md:text-5xl font-bold leading-tight text-[#1a95ad] mb-3 text-center mt-4">
+          50K+
+        </p>
+        <p class="text-[15px] md:text-[20px] text-foreground/70 my-4 mb-10 text-center font-medium">
+          Productos
+        </p>
+      </div>
+
+      <div>
+        <p class="text-xl md:text-5xl font-bold leading-tight text-[#1a95ad] mb-3 text-center mt-4">
+          24/7
+        </p>
+        <p class="text-[15px] md:text-[20px] text-foreground/70 my-4 mb-10 text-center font-medium">
+          Apoyo
+        </p>
+      </div>
+    </div>
+  </div>
+</div>

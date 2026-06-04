@@ -6,6 +6,7 @@ import { LayoutAdmin } from './layout/layout-admin/layout-admin';
 import { CatalogoComponent } from './features/principal/catalogo/catalogo';
 import { ColeccionesComponent } from './features/principal/colecciones/colecciones';
 import { DetalleProductoComponent } from './features/principal/detalle-producto/detalle-producto';
+import { AcercaComponent } from './features/principal/acerca/acerca';
 
 export const routes: Routes = [
   {
@@ -16,6 +17,7 @@ export const routes: Routes = [
       { path: 'catalogo', component: CatalogoComponent }, //catalogo
       { path: 'catalogo/:id', component: DetalleProductoComponent }, //detalle producto
       { path: 'colecciones', component: ColeccionesComponent }, //colecciones
+      { path: 'acerca', component: AcercaComponent }, //acerca
     ],
   },
   {

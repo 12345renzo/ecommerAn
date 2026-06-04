@@ -1,4 +1,1 @@
-export interface Size {
-    id: string;
-    label: string;
-}
+export type Size = 'XS' | 'S' | 'M' | 'L' | 'XL' | 'XXL';

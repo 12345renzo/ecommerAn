@@ -56,12 +56,12 @@
             <button
               class="border-2 border-[#1a95ad] cursor-pointer icon-neumorphic py-1 rounded-[12px] hover:font-semibold"
               [ngClass]="{
-                'bg-[#1a95ad] text-white': tallaSeleccionada() === talla.id,
-                'bg-white': tallaSeleccionada() !== talla.id,
+                'bg-[#1a95ad] text-white': tallaSeleccionada() === talla,
+                'bg-white': tallaSeleccionada() !== talla,
               }"
-              (click)="seleccionTalla(talla.id)"
+              (click)="seleccionTalla(talla)"
             >
-              {{ talla.label }}
+              {{ talla }}
             </button>
           }
         </div>

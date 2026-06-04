@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
-import { Producto } from '../../types/productoType';
+import { ProductoType } from '../../types/responseProductoTypes';
 
 @Component({
   selector: 'app-card-producto',
@@ -9,5 +9,5 @@ import { Producto } from '../../types/productoType';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CardProducto {
-  producto = input<Producto>();
+  producto = input<ProductoType>();
 }

@@ -1,23 +1,23 @@
-<div class="w-full flex flex-col group gap-3 bg-white rounded-lg shadow-md cursor-pointer">
+<div class="w-full h-full flex flex-col group gap-3 bg-white rounded-lg shadow-md cursor-pointer">
     <div>
-        <img [src]="producto()?.imagen" class="w-full h-full object-cover rounded-lg transition-transform duration-300 group-hover:scale-105">
+        <img [src]="producto()!.images[0]" class="w-full h-full object-cover rounded-lg transition-transform duration-300 group-hover:scale-105">
     </div>
     <div class="p-4 flex flex-col">
         <p class="text-lg font-bold">
-            {{ producto()?.nombre || "Nombre" }}
+            {{ producto()!.title || "Nombre" }}
         </p>
         <p>
             <span class="text-sm">
-                {{ producto()?.categoria || "Categoría" }}
+                {{ producto()!.gender || "Categoría" }}
             </span> - 
             <span class="text-sm font-semibold text-gray-400">
-                @for(size of producto()?.tallas; track $index) {
-                {{ size.label }},
+                @for(size of producto()!.sizes; track $index) {
+                {{ size }},
             }
             </span>
         </p>
         <p class="text-[16px] font-bold mt-5">
-            ${{ producto()?.precio || "Precio" }}
+            ${{ producto()!.price || "Precio" }}
         </p>
     </div>
 </div>

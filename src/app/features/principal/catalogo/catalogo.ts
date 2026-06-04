@@ -1,9 +1,8 @@
-import { ChangeDetectionStrategy, Component } from "@angular/core";
+import { ChangeDetectionStrategy, Component, computed, inject } from "@angular/core";
 import { Filtros } from "../../../components/filtros/filtros";
 import { CardProducto } from "../../../components/card-producto/card-producto";
-import { Producto } from "../../../types/productoType";
-import { productos } from "../../../data/productoMock";
 import { Paginator } from "../../../components/paginator/paginator";
+import { UseProductoService } from "../../../service/useProducto/use-producto";
 
 @Component({
   selector: 'app-catalogo',
@@ -13,7 +12,11 @@ import { Paginator } from "../../../components/paginator/paginator";
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CatalogoComponent {
+  datosProducto = inject(UseProductoService);
 
-  datos: Producto[] = productos;
+  datoss = computed(() => this.datosProducto.query.data() ?? []);
+  productos = computed(() => this.datosProducto.query.data()?.products ?? []);
+  isLoading = computed(() => this.datosProducto.query.isPending());
+  isError = computed(() => this.datosProducto.query.isError());
 
 }

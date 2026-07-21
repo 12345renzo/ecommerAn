@@ -12,6 +12,8 @@
               <input
                 type="search"
                 placeholder="Search products..."
+                [(ngModel)]="busquedad"
+                (keyup.enter)="miFuncion()"
                 class="pl-10 glass border-white/20 icon-neumorphic focus:border-primary/50 bg-white/30 dark:bg-white/5 rounded-2xl h-10 w-full"
               />
             </div>

@@ -17,6 +17,6 @@ export interface ProductoType {
 
 export interface ResponseProductoType {
   count: number;
-  page: number;
+  pages: number;
   products: ProductoType[];
 }

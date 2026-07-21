@@ -3,7 +3,7 @@
         <img [src]="producto()!.images[0]" class="w-full h-full object-cover rounded-lg transition-transform duration-300 group-hover:scale-105">
     </div>
     <div class="p-4 flex flex-col">
-        <p class="text-lg font-bold">
+        <p class="text-lg font-bold hover:underline" [routerLink]="['/catalogo', producto()!.id]">
             {{ producto()!.title || "Nombre" }}
         </p>
         <p>
@@ -16,8 +16,14 @@
             }
             </span>
         </p>
-        <p class="text-[16px] font-bold mt-5">
-            ${{ producto()!.price || "Precio" }}
-        </p>
+        <div class="flex flex-row justify-between items-center mt-5"> 
+            <p class="text-[16px] font-bold">
+                ${{ producto()!.price || "Precio" }}
+            </p>
+
+            <button class="icon-neumorphic py-1 px-2 rounded-lg hover:font-semibold cursor-pointer">
+                <svg lucideShoppingCart class="w-5 h-5"></svg>
+            </button>
+        </div>
     </div>
 </div>

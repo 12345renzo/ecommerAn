@@ -12,17 +12,20 @@
 
       <div>
         @if (isLoading()) {
-          <p>Cargando productos...</p>
+          <p class="text-center my-4 font-semibold text-xl">Cargando productos...</p>
         } @else if (isError()) {
-          <p>Error al cargar productos</p>
-        } @else {
+          <p class="text-center my-4 font-semibold text-xl">Error al cargar productos</p>
+        } @else if (productos().length === 0) {
+          <p class="text-center my-4 font-semibold text-xl">No hay productos disponibles</p>
+        }
+        @else {
           <div class="grid grid-cols-3 h-fit gap-5 p-3">
             @for (pro of productos(); track $index) {
               <app-card-producto [producto]="pro"></app-card-producto>
             }
           </div>
         }
-        <app-paginator [pageTotal]="10"></app-paginator>
+        <app-paginator [pageTotal]="pageTotal()"></app-paginator>
       </div>
     </div>
   </div>

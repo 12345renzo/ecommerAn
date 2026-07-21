@@ -14,8 +14,8 @@ import { UseProductoService } from "../../../service/useProducto/use-producto";
 export class CatalogoComponent {
   datosProducto = inject(UseProductoService);
 
-  datoss = computed(() => this.datosProducto.query.data() ?? []);
   productos = computed(() => this.datosProducto.query.data()?.products ?? []);
+  pageTotal = computed(() => this.datosProducto.query.data()?.pages ?? 1);
   isLoading = computed(() => this.datosProducto.query.isPending());
   isError = computed(() => this.datosProducto.query.isError());
 

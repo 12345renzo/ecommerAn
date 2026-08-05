@@ -35,9 +35,11 @@
             <button [routerLink]="'/auth/login'" class="icon-neumorphic cursor-pointer" aria-label="Account">
               <svg lucideUser class="w-5 h-5"></svg>
             </button>
-            <button href="/cart" class="icon-neumorphic relative cursor-pointer" aria-label="Cart">
+            <button [routerLink]="'/carrito'" class="icon-neumorphic relative cursor-pointer" aria-label="Cart">
+              @if (this.carrito.datosCarrito.length > 0) {
+                <span class="absolute top-1 right-1 w-2 h-2 bg-primary rounded-full"></span>
+              }
               <svg lucideShoppingCart class="w-5 h-5"></svg>
-              <span class="absolute top-1 right-1 w-2 h-2 bg-primary rounded-full"></span>
             </button>
           </div>
         </div>

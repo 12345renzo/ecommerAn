@@ -2,8 +2,10 @@ import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@a
 import { Size } from '../../../types/tallasTypes';
 import { sizes } from '../../../data/tallasMock';
 import { NgClass } from '@angular/common';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { UseOneProducto } from '../../../service/useOneProducto/use-one-producto';
+import { Carrito } from '../../../service/carrito/carrito';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-detalle-producto',
@@ -14,44 +16,27 @@ import { UseOneProducto } from '../../../service/useOneProducto/use-one-producto
 })
 export class DetalleProductoComponent {
   private route = inject(ActivatedRoute);
-  datoProducto = inject(UseOneProducto);
+  private router = inject(Router);
+  private toastr = inject(ToastrService);
+  producto = inject(UseOneProducto);
+  carrito = inject(Carrito);
   tallas: Size[] = sizes;
-  cantidad = signal<number>(0);
+  cantidad = signal<number>(1);
   tallaSeleccionada = signal<string | null>(null);
   codigo = signal<string | null>(null);
   index = signal<number>(1);
 
-
-  productos = computed(() => this.datoProducto.query.data());
+  productos = computed(() => this.producto.query.data());
   lengthImages = computed(() => this.productos()?.images.length ?? 0);
-  isLoading = computed(() => this.datoProducto.query.isPending());
-  isError = computed(() => this.datoProducto.query.isError());
+  isLoading = computed(() => this.producto.query.isPending());
+  isError = computed(() => this.producto.query.isError());
 
 
   constructor() {
     this.route.params.pipe().subscribe((params) => {
+      this.producto.codigo.set(params['id']);
       this.codigo.set(params['id']);
     });
-  }
-
-  //* funcion para cambiar la img del producto asi adelante
-  aumentarIndex(){
-    if(this.lengthImages() > this.index()){
-      this.index.update((value) => value + 1);
-    }
-    else{
-      this.index.update(() => 1);
-    }
-  }
-
-  //* funcion para cambiar la img del producto asi atras
-  disminuirIndex(){
-    if(this.index() > 1){
-      this.index.update((value) => value - 1);
-    }
-    else{
-      this.index.update(() => this.lengthImages());
-    }
   }
 
   //* funcion para elegir la img del producto
@@ -61,6 +46,9 @@ export class DetalleProductoComponent {
 
   //* funcion para aumentar la cantidad del producto
   aumentarCantidad(){
+    if(this.cantidad() == this.productos()?.stock){
+      return;
+    }
     this.cantidad.update((value) => value + 1);
   }
 
@@ -88,10 +76,22 @@ export class DetalleProductoComponent {
   });
 
   montoTotal = computed(() => {
-    return this.cantidad() * 200;
+    return (this.productos()?.price ?? 0) * this.cantidad();
   });
 
   agregarAlCarrito(){
-    console.log(this.codigo());
+    const producto = {
+      id: this.productos()!.id,
+      imagen: this.productos()!.images[0],
+      title: this.productos()!.title,
+      price: this.productos()!.price,
+      cantidad: this.cantidad(),
+      talla: this.tallaSeleccionada(),
+      stock: this.productos()!.stock
+    };
+    this.carrito.llenarCarrito(producto);
+
+    this.toastr.success('Producto agregado al carrito', 'Éxito');
+    this.router.navigate(['/catalogo']);
   }
 }

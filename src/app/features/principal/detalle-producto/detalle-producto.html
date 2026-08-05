@@ -2,37 +2,32 @@
   <div class="w-full max-w-7xl px-5 sm:px-6 lg:px-8 py-6 mx-auto">
     <div class="grid grid-cols-2 gap-4 my-4">
       <div class="flex flex-col gap-5 justify-center">
-        <div class="bg-red-500 w-full rounded-xl h-[80vh]">{{productos().images[0]}}</div>
+        @if (productos(); as producto) {
+          <div class="w-full rounded-xl h-[80vh]">
+            <img class="w-full h-full object-contain" [src]="producto.images[index()]" />
+          </div>
+        } @else if (isLoading()) {
+          <p>Cargando producto...</p>
+        } @else if (isError()) {
+          <p>Ocurrió un error al cargar el producto.</p>
+        }
 
         <div class="grid grid-cols-4 gap-4">
-          <div
-            class="bg-red-500 w-full rounded-xl h-[15vh] cursor-pointer transition-all hover:translate-y-1"
-          >
-            foto1
-          </div>
-          <div
-            class="bg-red-500 w-full rounded-xl h-[15vh] cursor-pointer transition-all hover:translate-y-1"
-          >
-            foto1
-          </div>
-          <div
-            class="bg-red-500 w-full rounded-xl h-[15vh] cursor-pointer transition-all hover:translate-y-1"
-          >
-            foto1
-          </div>
-          <div
-            class="bg-red-500 w-full rounded-xl h-[15vh] cursor-pointer transition-all hover:translate-y-1"
-          >
-            foto1
-          </div>
+          @for (image of productos()?.images; track $index) {
+            <div
+              (click)="elegirIndex($index)"
+              class="w-full rounded-xl h-[15vh] cursor-pointer transition-all hover:translate-y-1"
+            >
+              <img class="w-full h-full object-contain" [src]="image" />
+            </div>
+          }
         </div>
       </div>
       <div class="flex flex-col gap-5 px-4">
-        <p class="text-3xl font-bold text-[#1a95ad]">Nombre del producto</p>
-        <p class="text-2xl font-bold text-[#1a95ad]">$ 200.00</p>
+        <p class="text-3xl font-bold text-[#1a95ad]">{{productos()?.title}}</p>
+        <p class="text-2xl font-bold text-[#1a95ad]">$ {{productos()?.price}}</p>
         <p class="text-[17px] text-gray-600">
-          Experience superior audio quality with our Premium Wireless Headphones. Featuring noise
-          cancellation technology, 30-hour battery life, and premium comfort design.
+          {{productos()?.description}}
         </p>
         <p class="text-lg font-semibold">Cantidad</p>
         <div class="flex flex-row gap-4 items-center">
@@ -49,10 +44,11 @@
           >
             +
           </button>
+          <p class="text-md font-semibold">Stock: {{ productos()?.stock }}</p>
         </div>
         <p class="text-lg font-semibold">Tallas</p>
         <div class="grid grid-cols-3 gap-2 w-full items-center px-2">
-          @for (talla of tallas; track $index) {
+          @for (talla of productos()?.sizes; track $index) {
             <button
               class="border-2 border-[#1a95ad] cursor-pointer icon-neumorphic py-1 rounded-[12px] hover:font-semibold"
               [ngClass]="{

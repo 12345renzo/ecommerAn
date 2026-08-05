@@ -3,6 +3,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { LucideSearch, LucideShoppingCart, LucideUser } from '@lucide/angular';
+import { Carrito } from '../../service/carrito/carrito';
 
 @Component({
   selector: 'app-navbar',
@@ -14,6 +15,7 @@ import { LucideSearch, LucideShoppingCart, LucideUser } from '@lucide/angular';
 export class NavbarComponent {
   private route = inject(ActivatedRoute);
   private router = inject(Router);
+  carrito = inject(Carrito);
   busquedad = signal<string | null>(this.route.snapshot.queryParamMap.get('q'));
 
   constructor(){

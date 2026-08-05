@@ -14,12 +14,6 @@ export class UseOneProducto {
 
   codigo = signal<string | null>(this.route.snapshot.paramMap.get('id'));
 
-  constructor() {
-    this.route.queryParamMap.pipe(takeUntilDestroyed()).subscribe((params) => {
-      this.codigo.set(params.get('id'));
-    });
-  }
-
   query = injectQuery(() => ({
     queryKey: ['producto', this.codigo()],
     queryFn: () => this.getProducto.getProduct(this.codigo() || ''),

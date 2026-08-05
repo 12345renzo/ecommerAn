@@ -1,0 +1,8 @@
+<div>
+    @for (item of this.carrito.datosCarrito(); track $index) {
+        <p>
+            {{item.id}} - {{item.title}} - {{item.cantidad}} - {{item.talla}} - {{item.price}}
+            <img src="{{item.imagen}}" alt="{{item.title}}" class="w-16 h-16 object-cover" />
+        </p>
+    }
+</div>

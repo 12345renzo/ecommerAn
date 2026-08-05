@@ -12,7 +12,7 @@ export class GetProducto {
   url = environment.apiUrl;
 
   //*aki traigo un producto
-  async getProduct(id: string): Promise<any> {
+  async getProduct(id: string): Promise<ProductoType> {
     const datoProducto = await lastValueFrom(
       this.http.get<ProductoType>(`${this.url}/products/${id}`),
     );

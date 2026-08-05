@@ -6,10 +6,12 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { UseOneProducto } from '../../../service/useOneProducto/use-one-producto';
 import { Carrito } from '../../../service/carrito/carrito';
 import { ToastrService } from 'ngx-toastr';
+import { UseProductoService } from '../../../service/useProducto/use-producto';
+import { CardProducto } from "../../../components/card-producto/card-producto";
 
 @Component({
   selector: 'app-detalle-producto',
-  imports: [NgClass],
+  imports: [NgClass, CardProducto],
   templateUrl: './detalle-producto.html',
   styleUrl: './detalle-producto.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -20,6 +22,8 @@ export class DetalleProductoComponent {
   private toastr = inject(ToastrService);
   producto = inject(UseOneProducto);
   carrito = inject(Carrito);
+  otrosProductos = inject(UseProductoService);
+
   tallas: Size[] = sizes;
   cantidad = signal<number>(1);
   tallaSeleccionada = signal<string | null>(null);
@@ -30,6 +34,18 @@ export class DetalleProductoComponent {
   lengthImages = computed(() => this.productos()?.images.length ?? 0);
   isLoading = computed(() => this.producto.query.isPending());
   isError = computed(() => this.producto.query.isError());
+
+  otrosProductosQuery = computed(() => this.otrosProductos.query.data()?.products ?? []);
+  otrosProductosIsLoading = computed(() => this.otrosProductos.query.isPending());
+  otrosProductosIsError = computed(() => this.otrosProductos.query.isError());
+
+  mostrar5Productos = computed(() => {
+    const productos = this.otrosProductosQuery();
+    if (productos.length <= 5) {
+      return productos;
+    }
+    return productos.slice(0, 5);
+  });
 
 
   constructor() {

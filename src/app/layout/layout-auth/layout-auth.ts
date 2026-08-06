@@ -1,5 +1,7 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
+import { filter } from 'rxjs';
 
 @Component({
   selector: 'app-layout-auth',
@@ -8,4 +10,18 @@ import { RouterOutlet } from '@angular/router';
   styleUrl: './layout-auth.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class LayoutAuth {}
+export class LayoutAuth {
+  private router = inject(Router);
+  activo = signal<string>(this.router.url);
+
+  constructor() {
+    this.router.events
+      .pipe(
+        filter((event) => event instanceof NavigationEnd),
+        takeUntilDestroyed(),
+      )
+      .subscribe((event: NavigationEnd) => {
+        this.activo.set(event.urlAfterRedirects);
+      });
+  }
+}

@@ -8,6 +8,8 @@ import { ColeccionesComponent } from './features/principal/colecciones/coleccion
 import { DetalleProductoComponent } from './features/principal/detalle-producto/detalle-producto';
 import { AcercaComponent } from './features/principal/acerca/acerca';
 import { CarritoComponent } from './features/principal/carrito/carrito';
+import { LoginComponent } from './features/auth/login/login';
+import { RegisterComponent } from './features/auth/register/register';
 
 export const routes: Routes = [
   {
@@ -25,7 +27,10 @@ export const routes: Routes = [
   {
     path: 'auth',
     component: LayoutAuth,
-    children: [],
+    children: [
+      { path: 'login', component: LoginComponent },
+      { path: 'register', component: RegisterComponent },
+    ],
   },
   {
     path: 'admin',

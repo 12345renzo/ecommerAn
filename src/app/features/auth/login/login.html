@@ -1,1 +1,49 @@
-<p>login works!</p>
+<div class="flex flex-col gap-8 w-full">
+  <form [formGroup]="profileForm" (ngSubmit)="handleSubmit()" class="flex flex-col gap-8 w-full">
+    <div class="flex flex-col gap-3 w-full">
+      <p class="text-black font-bold text-[16px]">Correo electrónico:</p>
+      <input
+        type="email"
+        formControlName="email"
+        placeholder="Ejemplo: renzogonzalesasencios@gmail.com"
+        class="glass font-medium text-gray-500 border-white/20 icon-neumorphic focus:border-primary/50 bg-white/30 dark:bg-white/5 rounded-2xl h-10 w-full"
+      />
+    </div>
+
+    <div class="flex flex-col gap-3 w-full">
+      <p class="text-black font-bold text-[16px]">Contraseña:</p>
+      <div class="grid grid-cols-[1fr_auto] gap-3">
+        <input
+          [type]="typoDatos()"
+          formControlName="password"
+          placeholder="Ejemplo: ********"
+          class="glass font-medium text-gray-500 border-white/20 icon-neumorphic focus:border-primary/50 bg-white/30 dark:bg-white/5 rounded-2xl h-10 w-full"
+        />
+        <p
+          class="icon-neumorphic cursor-pointer"
+          aria-label="Toggle password visibility"
+          (click)="cambiarTypoDatos()"
+        >
+          @if (this.typoDatos() == 'password') {
+            <svg lucideEyeOff class="w-4 h-4"></svg>
+          } @else {
+            <svg lucideEye class="w-4 h-4"></svg>
+          }
+        </p>
+      </div>
+    </div>
+
+    <button type="submit" [disabled]="!profileForm.valid" class="btn-neumorphic-primary px-8 cursor-pointer">Iniciar sesión</button>
+  </form>
+
+  <p class="text-center text-[14px] text-gray-500">
+    ¿No tienes cuenta?
+    <span class="text-primary hover:text-primary/50 cursor-pointer" [routerLink]="'/auth/register'"
+      >Crea una cuenta</span
+    >
+  </p>
+
+  <p class="text-center text-primary hover:text-primary/50 cursor-pointer" [routerLink]="'/'">
+    Regresar a la página principal
+  </p>
+</div>

@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
 import { Carrito } from '../../../service/carrito/carrito';
 import { RouterLink } from "@angular/router";
 import { LucideChevronLeft, LucideTrash2 } from '@lucide/angular';
@@ -17,4 +17,12 @@ export class CarritoComponent {
   carrito = inject(Carrito);
   tallas: Size[] = sizes;
 
+
+  total = computed(() => {
+    let total = 0;
+    this.carrito.datosCarrito().forEach((item) => {
+      total += item.price * item.cantidad;
+    });
+    return total;
+  });
 }

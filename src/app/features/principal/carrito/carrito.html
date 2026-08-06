@@ -12,20 +12,22 @@
         <p class="text-center text-2xl font-bold">Tu carrito está vacío</p>
       } @else {
         @for (item of this.carrito.datosCarrito(); track $index) {
-          <div class="grid grid-cols-[auto_1fr_1fr] gap-3 item-center">
+          <div class="grid grid-cols-[auto_1fr_1fr] gap-3 item-center my-2">
             <img src="{{ item.imagen }}" alt="{{ item.title }}" class="w-22 h-22 object-cover" />
             <div class="flex flex-col justify-center">
               <p class="text-[12px] font-light text-gray-500">{{ item.id }}</p>
               <p class="text-xl font-bold">{{ item.title }}</p>
             </div>
-            <div class="grid grid-cols-3 gap-3">
+            <div class="grid grid-cols-4 gap-3">
               <div class="grid grid-cols-[auto_1fr] gap-3 items-center">
                 <p class="text-[13px] font-normal text-gray-500">Cantidad:</p>
                 <input
                   type="number"
                   class="bg-gray-200 w-18 rounded-2xl py-1 px-3 font-medium text-center"
-                  value="{{ item.cantidad }}"
+                  min="1"
+                  max="{{ item.stock }}"
                   [(ngModel)]="item.cantidad"
+                  (change)="this.carrito.actualizarCantidad(item.id, item.cantidad)"
                 />
                 <p class="text-[13px] font-normal text-gray-500">Stock:</p>
                 <p class="text-[13px] font-medium">{{ item.stock }}</p>
@@ -33,7 +35,7 @@
 
               <div class="flex flex-col items-center justify-center">
                 <p class="text-[13px] font-normal text-gray-500 mb-2">Talla:</p>
-                <select value="{{ item.talla }}" [(ngModel)]="item.talla" class="bg-gray-200 w-18 rounded-2xl py-1 px-3 font-medium text-center">
+                <select [(ngModel)]="item.talla" (change)="this.carrito.actualizarTalla(item.id, item.talla)" class="bg-gray-200 w-18 rounded-2xl py-1 px-3 font-medium text-center">
                   @for (size of tallas; track $index) {
                     <option value="{{ size }}">{{ size }}</option>
                   }
@@ -45,17 +47,27 @@
                     <p class="text-[13px] font-normal text-gray-500">Precio:</p>
                     <p class="text-xl font-bold">${{ item.price }}</p>
                 </div>
-                <button class="icon-neumorphic bg-red-400 hover:text-white py-2 px-2 rounded-lg hover:font-semibold cursor-pointer">
+                <div>
+                    <p class="text-[13px] font-normal text-gray-500">Subtotal:</p>
+                    <p class="text-xl font-bold">${{ item.price * item.cantidad }}</p>
+                </div>
+              </div>
+
+              <div class="flex flex-row items-center">
+                <button (click)="this.carrito.eliminarOneCarrito(item.id)" class="icon-neumorphic bg-red-400 hover:text-white py-2 px-2 rounded-lg hover:font-semibold cursor-pointer">
                   <svg lucideTrash2 class="w-5 h-5"></svg>
                 </button>
               </div>
             </div>
           </div>
+          @if (this.carrito.datosCarrito().length > $index + 1) {
+            <hr class="border-gray-300 border rounded-2xl w-full" />
+          }
         }
       }
     </div>
     <div class="flex flex-row justify-end p-5">
-        <p class="text-xl"><span class="font-bold">Total:</span> $500</p>
+        <p class="text-xl"><span class="font-bold">Total:</span> ${{ total() }}</p>
     </div>
   </div>
 </div>

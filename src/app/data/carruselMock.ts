@@ -3,7 +3,7 @@ import { HomePrincipal } from "../types/homePrincipal";
 export const DatosCarrusel: HomePrincipal[] = [
   {
     id: 1,
-    nombre: 'Coleccion de Verano 2026',
+    nombre: 'Coleccion 2026',
     descripcion: 'Disfruta del calor con nuestros básicos de verano seleccionados',
     imagen: '/coleccion1.avif',
   },

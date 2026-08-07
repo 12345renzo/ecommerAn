@@ -1,6 +1,6 @@
-<div class="w-full flex flex-row items-center justify-center gap-4 mt-3">
+<div class="w-full flex flex-row items-center justify-center gap-4 mt-3 px-2">
   <button
-    class="icon-neumorphic text-gray-600 font-medium"
+    class="icon-neumorphic text-gray-600 font-medium hidden md:block"
     [ngClass]="{
       'cursor-not-allowed': constador() === 1,
       'cursor-pointer hover:text-primary': constador() !== 1,
@@ -23,7 +23,7 @@
     </button>
   }
   <button
-    class="icon-neumorphic text-gray-600 font-medium"
+    class="icon-neumorphic text-gray-600 font-medium hidden md:block"
     [ngClass]="{
       'cursor-not-allowed': constador() === pageTotal(),
       'cursor-pointer hover:text-primary': constador() !== pageTotal(),

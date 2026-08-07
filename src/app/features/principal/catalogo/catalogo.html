@@ -5,7 +5,7 @@
       Explore nuestra colección completa de productos premium
     </p>
 
-    <div class="grid grid-cols-[auto_1fr] gap-5 py-14">
+    <div class="grid grid-cols-1 lg:grid-cols-[auto_1fr] gap-5 py-14">
       <div>
         <app-filtros></app-filtros>
       </div>
@@ -19,7 +19,7 @@
           <p class="text-center my-4 font-semibold text-xl">No hay productos disponibles</p>
         }
         @else {
-          <div class="grid grid-cols-3 h-fit gap-5 p-3">
+          <div class="grid grid-cols-1 md:grid-cols-3 h-fit gap-5 p-3">
             @for (pro of productos(); track $index) {
               <app-card-producto [producto]="pro"></app-card-producto>
             }

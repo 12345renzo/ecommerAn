@@ -10,7 +10,7 @@
       }
     </div>
     <p class="text-xl md:text-3xl font-bold leading-tight text-[#1a95ad] mb-3 mt-10">Todas las colecciones disponibles</p>
-    <div class="grid grid-cols-3 gap-5 w-full my-6">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-5 w-full my-6">
       @for (coleccion of cardCollections; track $index) {
         <app-card-coleccion [coleccion]="coleccion"></app-card-coleccion>
       }

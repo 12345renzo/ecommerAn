@@ -2,18 +2,18 @@
   <div class="flex flex-col items-center justify-center">
     <div class="flex flex-row gap-2 items-center justify-center">
       @if (this.activo() == '/auth/login') {
-        <p class="text-3xl font-bold text-[#1a95ad]">Bienvenido a</p>
+        <p class="text-lg md:text-3xl font-bold text-[#1a95ad]">Bienvenido a</p>
       } @else {
-        <p class="text-3xl font-bold text-[#1a95ad]">Crear cuenta en</p>
+        <p class="text-lg md:text-3xl font-bold text-[#1a95ad]">Crear cuenta en</p>
       }
       <img src="/ori.png" alt="Logo de la Empresa" class="w-32 h-fit object-cover" />
     </div>
     @if (this.activo() == '/auth/login') {
-      <p class="text-[16px] font-normal text-gray-500 mt-2 mb-6">Inicia sesión en tu cuenta de ModeZone</p>
+      <p class="text-[14px] md:text-[16px] font-normal text-gray-500 mt-2 mb-6">Inicia sesión en tu cuenta de ModeZone</p>
     } @else {
-      <p class="text-[16px] font-normal text-gray-500 mt-2 mb-6">Únete a ModeZone hoy mismo</p>
+      <p class="text-[14px] md:text-[16px] font-normal text-gray-500 mt-2 mb-6">Únete a ModeZone hoy mismo</p>
     }
-    <div class="icon-neumorphic rounded-xl p-7 my-4 min-w-[30vw]">
+    <div class="icon-neumorphic rounded-xl p-4 md:p-7 my-4 min-w-[90vw] md:min-w-[53vw] lg:min-w-[30vw]">
         <router-outlet></router-outlet>
     </div>
   </div>

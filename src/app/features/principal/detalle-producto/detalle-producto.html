@@ -1,9 +1,9 @@
 <div class="w-full flex flex-col items-center justify-center">
   <div class="w-full max-w-7xl px-5 sm:px-6 lg:px-8 py-6 mx-auto">
-    <div class="grid grid-cols-2 gap-4 my-4">
-      <div class="flex flex-col gap-5 justify-center">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 my-4">
+      <div class="flex flex-col gap-5 justify-center order-2 lg:order-1 my-5">
         @if (productos(); as producto) {
-          <div class="w-full rounded-xl h-[80vh]">
+          <div class="w-full rounded-xl h-[45vh] md:h-[60vh] lg:h-[80vh]">
             <img class="w-full h-full object-contain" [src]="producto.images[index()]" />
           </div>
         } @else if (isLoading()) {
@@ -16,20 +16,20 @@
           @for (image of productos()?.images; track $index) {
             <div
               (click)="elegirIndex($index)"
-              class="w-full rounded-xl h-[15vh] cursor-pointer transition-all hover:translate-y-1"
+              class="w-full rounded-xl h-[15vh] md:h-[12vh] lg:h-[15vh] cursor-pointer transition-all hover:translate-y-1"
             >
               <img class="w-full h-full object-contain" [src]="image" />
             </div>
           }
         </div>
       </div>
-      <div class="flex flex-col gap-5 px-4">
-        <p class="text-3xl font-bold text-[#1a95ad]">{{productos()?.title}}</p>
-        <p class="text-2xl font-bold text-[#1a95ad]">$ {{productos()?.price}}</p>
-        <p class="text-[17px] text-gray-600">
+      <div class="flex flex-col gap-5 px-4 order-1 lg:order-2">
+        <p class="text-xl md:text-3xl font-bold text-[#1a95ad]">{{productos()?.title}}</p>
+        <p class="text-lg md:text-2xl font-bold text-[#1a95ad]">$ {{productos()?.price}}</p>
+        <p class="text-[15px] md:text-[17px] text-gray-600">
           {{productos()?.description}}
         </p>
-        <p class="text-lg font-semibold">Cantidad</p>
+        <p class="text-[15px] md:text-lg font-semibold">Cantidad</p>
         <div class="flex flex-row gap-4 items-center">
           <button
             class="bg-[#1a95ad] text-white py-1 px-4 rounded-lg hover:bg-[#157a8f] cursor-pointer transition-all"
@@ -46,8 +46,8 @@
           </button>
           <p class="text-md font-semibold">Stock: {{ productos()?.stock }}</p>
         </div>
-        <p class="text-lg font-semibold">Tallas</p>
-        <div class="grid grid-cols-3 gap-2 w-full items-center px-2">
+        <p class="text-[15px] md:text-lg font-semibold">Tallas</p>
+        <div class="grid grid-cols-3 md:grid-cols-6 lg:grid-cols-3 gap-2 w-full items-center px-2">
           @for (talla of productos()?.sizes; track $index) {
             <button
               class="border-2 border-[#1a95ad] cursor-pointer icon-neumorphic py-1 rounded-[12px] hover:font-semibold"
@@ -63,8 +63,8 @@
         </div>
 
         <div class="flex flex-row gap-4 items-center">
-          <p class="text-lg font-semibold">Monto total:</p>
-          <p class="text-xl font-bold text-[#1a95ad]">${{ montoTotal() }}</p>
+          <p class="text-[15px] md:text-lg font-semibold">Monto total:</p>
+          <p class="text-[17px] md:text-xl font-bold text-[#1a95ad]">${{ montoTotal() }}</p>
         </div>
 
         <button
@@ -81,8 +81,8 @@
       </div>
     </div>
     <div class="mt-10">
-      <p class="text-2xl font-bold mb-6">Otras opciones</p>
-      <div class="grid grid-cols-5 gap-4 my-4">
+      <p class="text-lg md:text-2xl font-bold mb-6">Otras opciones</p>
+      <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4 my-4">
         @for (producto of mostrar5Productos(); track $index) {
           <app-card-producto [producto]="producto"></app-card-producto>
         }

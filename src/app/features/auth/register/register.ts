@@ -1,7 +1,10 @@
-import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { RouterLink } from "@angular/router";
+import { Router, RouterLink } from '@angular/router';
 import { LucideEye, LucideEyeOff } from '@lucide/angular';
+import { Usuario } from '../../../service/usuario/usuario';
+
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-register',
@@ -12,17 +15,30 @@ import { LucideEye, LucideEyeOff } from '@lucide/angular';
 })
 export class RegisterComponent {
   typoDatos = signal<string>('password');
+  operacionesAuth = inject(Usuario);
+  private router = inject(Router);
+  private toastr = inject(ToastrService);
   profileRegisterForm = new FormGroup({
-    fullName: new FormControl('', [Validators.required]),
-    email: new FormControl('', [Validators.required, Validators.email]),
-    password: new FormControl('', [Validators.required]),
+    fullName: new FormControl('', { nonNullable: true, validators: [Validators.required] }),
+    email: new FormControl('', { nonNullable: true, validators: [Validators.required, Validators.email] }),
+    password: new FormControl('', { nonNullable: true, validators: [Validators.required] }),
   });
 
   cambiarTypoDatos() {
     this.typoDatos.update((prev) => (prev === 'text' ? 'password' : 'text'));
   }
 
-  handleSubmit() {
-    console.log(this.profileRegisterForm.value.fullName, this.profileRegisterForm.value.email, this.profileRegisterForm.value.password);
+  async handleSubmit() {
+    if (this.profileRegisterForm.invalid) {
+      return;
+    }
+    const { fullName, email, password } = this.profileRegisterForm.getRawValue();
+    const registerOk = await this.operacionesAuth.register(fullName, email, password);
+    if (registerOk) {
+      this.toastr.success('Usuario Creado', 'Éxito');
+      this.router.navigate(['/']);
+    } else {
+      this.toastr.error('No se pudo crear el usuario', 'Error');
+    }
   }
 }

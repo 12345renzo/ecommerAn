@@ -9,7 +9,25 @@
     </div>
     <div class="icon-neumorphic rounded-xl p-5 my-4">
       @if (this.carrito.datosCarrito().length == 0) {
-        <p class="text-center text-2xl font-bold">Tu carrito está vacío</p>
+        <div class="w-full flex flex-col items-center justify-center gap-7 py-16">
+          <div class="icon-neumorphic p-8 rounded-full text-[#1a95ad]">
+            <svg lucideShoppingCart class="w-14 h-14"></svg>
+          </div>
+          <div class="flex flex-col items-center gap-3">
+            <p class="text-2xl md:text-3xl font-bold text-black">Tu carrito está vacío</p>
+            <p class="text-[15px] md:text-[17px] text-foreground/70 text-center max-w-md leading-relaxed">
+              Aún no has agregado productos a tu carrito. Explora nuestro catálogo y encuentra la
+              prenda perfecta para ti.
+            </p>
+          </div>
+          <button
+            [routerLink]="'/catalogo'"
+            class="btn-neumorphic-primary px-8 cursor-pointer text-[14px] md:text-[16px] flex items-center gap-2"
+          >
+            <svg lucideShoppingBag class="w-5 h-5"></svg>
+            Ir al catálogo
+          </button>
+        </div>
       } @else {
         @for (item of this.carrito.datosCarrito(); track $index) {
           <div class="grid grid-cols-[auto_1fr_1fr] gap-3 item-center my-2">

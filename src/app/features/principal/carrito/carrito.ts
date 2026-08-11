@@ -1,14 +1,14 @@
 import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
 import { Carrito } from '../../../service/carrito/carrito';
 import { RouterLink } from "@angular/router";
-import { LucideChevronLeft, LucideTrash2 } from '@lucide/angular';
+import { LucideChevronLeft, LucideShoppingBag, LucideShoppingCart, LucideTrash2 } from '@lucide/angular';
 import { FormsModule } from '@angular/forms';
 import { Size } from '../../../types/tallasTypes';
 import { sizes } from '../../../data/tallasMock';
 
 @Component({
   selector: 'app-carrito',
-  imports: [RouterLink, LucideChevronLeft,FormsModule, LucideTrash2],
+  imports: [RouterLink, LucideChevronLeft, LucideShoppingBag, LucideShoppingCart, FormsModule, LucideTrash2],
   templateUrl: './carrito.html',
   styleUrl: './carrito.css',
   changeDetection: ChangeDetectionStrategy.OnPush,

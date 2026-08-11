@@ -1,0 +1,103 @@
+<div class="w-full flex flex-col items-center justify-center">
+  <div class="w-full max-w-7xl px-5 sm:px-6 lg:px-8 py-6 mx-auto">
+    <p class="text-xl md:text-4xl font-bold leading-tight text-[#1a95ad] mb-3">Mi Perfil</p>
+    <p class="text-[15px] md:text-[18px] text-foreground/70 mt-3">
+      Bienvenido a tu espacio personal
+    </p>
+
+    @let user = datosUsuario.useri()?.user;
+
+    <div class="grid grid-cols-1 lg:grid-cols-[320px_1fr] gap-6 py-14">
+      <div class="flex flex-col items-center gap-6 p-8 card-neumorphic h-fit">
+        <img
+          class="w-44 h-44 rounded-full object-cover border-4 border-[#1a95ad] shadow-[0_0_15px_#1a95ad]"
+          [src]="avatarUrl()"
+          alt="Foto de perfil"
+        />
+        <div class="flex flex-col items-center gap-1">
+          <p class="text-xl md:text-2xl font-bold text-center text-black">{{ user?.fullName }}</p>
+          <p class="text-[14px] md:text-[15px] text-foreground/70 text-center break-all">{{ user?.email }}</p>
+        </div>
+        @if (user?.isAdmin) {
+          <span
+            class="flex items-center gap-2 bg-[#1a95ad] text-white text-sm font-semibold px-4 py-1.5 rounded-full"
+          >
+            <svg lucideCrown class="w-4 h-4"></svg>
+            Administrador
+          </span>
+        }
+        <button
+          class="border-2 border-[#1a95ad] icon-neumorphic py-1 px-5 rounded-[12px] hover:font-semibold cursor-pointer hover:bg-[#1a95ad] hover:text-white transition-all flex items-center gap-2"
+          (click)="cerrarSesion()"
+        >
+          <svg lucideLogOut class="w-4 h-4"></svg>
+          Cerrar sesión
+        </button>
+      </div>
+
+      <div class="flex flex-col gap-6">
+        <div class="card-neumorphic">
+          <p class="text-lg md:text-2xl font-bold text-[#1a95ad] mb-6">Información personal</p>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="flex items-center gap-4">
+              <div class="icon-neumorphic p-3 rounded-xl text-[#1a95ad]">
+                <svg lucideUserRound class="w-5 h-5"></svg>
+              </div>
+              <div class="min-w-0">
+                <p class="text-[13px] text-foreground/70 font-medium">Nombre completo</p>
+                <p class="text-[15px] md:text-[17px] font-semibold text-black truncate">{{ user?.fullName }}</p>
+              </div>
+            </div>
+
+            <div class="flex items-center gap-4">
+              <div class="icon-neumorphic p-3 rounded-xl text-[#1a95ad]">
+                <svg lucideMail class="w-5 h-5"></svg>
+              </div>
+              <div class="min-w-0">
+                <p class="text-[13px] text-foreground/70 font-medium">Correo electrónico</p>
+                <p class="text-[15px] md:text-[17px] font-semibold text-black break-all">{{ user?.email }}</p>
+              </div>
+            </div>
+
+            <div class="flex items-center gap-4">
+              <div class="icon-neumorphic p-3 rounded-xl text-[#1a95ad]">
+                <svg lucideIdCard class="w-5 h-5"></svg>
+              </div>
+              <div class="min-w-0">
+                <p class="text-[13px] text-foreground/70 font-medium">ID de usuario</p>
+                <p class="text-[15px] md:text-[17px] font-semibold text-black break-all">{{ user?.id }}</p>
+              </div>
+            </div>
+
+            <div class="flex items-center gap-4">
+              <div class="icon-neumorphic p-3 rounded-xl text-[#1a95ad]">
+                <svg lucideAtSign class="w-5 h-5"></svg>
+              </div>
+              <div class="min-w-0">
+                <p class="text-[13px] text-foreground/70 font-medium">Estado de cuenta</p>
+                <p class="text-[15px] md:text-[17px] font-semibold text-green-600">Verificado</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card-neumorphic">
+          <p class="text-lg md:text-2xl font-bold text-[#1a95ad] mb-6">Roles</p>
+          <div class="flex flex-wrap gap-3">
+            @for (rol of user?.roles; track $index) {
+              <span
+                class="flex items-center gap-2 border-2 border-[#1a95ad] bg-white text-[#1a95ad] text-sm font-semibold px-4 py-1.5 rounded-full"
+              >
+                <svg lucideBadgeCheck class="w-4 h-4"></svg>
+                {{ rol }}
+              </span>
+            }
+            @if (user?.roles?.length === 0) {
+              <p class="text-[15px] md:text-[17px] text-foreground/70">Sin roles asignados</p>
+            }
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

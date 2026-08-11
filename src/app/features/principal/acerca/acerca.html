@@ -7,8 +7,8 @@
       Creemos que la moda es más que simple ropa: es una forma de autoexpresión y una manera de
       conectar con el mundo.
     </p>
-    <div class="grid grid-cols-2 gap-4 my-4">
-      <div class="w-full flex flex-col p-5">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 my-4">
+      <div class="w-full flex flex-col p-5 order-2 md:order-1">
         <p class="text-xl md:text-3xl font-bold leading-tight text-black mb-3">Nuestra Misión</p>
         <p class="text-[15px] md:text-[16px] text-foreground/70 my-4 mb-10 tracking-wide">
           ProStore se fundó con una misión sencilla: hacer que la moda de calidad sea accesible para
@@ -22,7 +22,7 @@
           Ver más
         </button>
       </div>
-      <div class="w-full h-full p-5">
+      <div class="w-full h-full p-5 order-1 md:order-2">
         <img
           src="/about.jpg"
           alt="about"
@@ -40,7 +40,7 @@
     <p class="text-[15px] md:text-[18px] text-foreground/70 my-4 mb-10 text-center">
       Personas apasionadas dedicadas a ofrecer excelencia
     </p>
-    <div class="grid grid-cols-4 gap-3">
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
       @for (dato of datosEquipos; track $index) {
         <app-card-team [datosCardTeam]="dato" />
       }
@@ -49,7 +49,7 @@
 </div>
 <div class="w-full flex flex-col items-center justify-center">
   <div class="w-full max-w-7xl px-5 sm:px-6 lg:px-8 py-20 mx-auto">
-    <div class="grid grid-cols-4 gap-4">
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
       <div>
         <p class="text-xl md:text-5xl font-bold leading-tight text-[#1a95ad] mb-3 text-center mt-4">
           10K+

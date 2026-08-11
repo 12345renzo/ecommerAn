@@ -1,47 +1,87 @@
 <div class="sticky top-0 z-40 glass border-b border-white/10">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex items-center justify-between h-20">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex items-center justify-between h-20">
+      <button [routerLink]="'/'" class="flex items-center gap-2 shrink-0 cursor-pointer">
+        <img src="/ori.png" alt="Logo de la Empresa" class="w-32 h-fit object-cover" />
+      </button>
 
-          <button [routerLink]="'/'" class="flex items-center gap-2 shrink-0 cursor-pointer">
-            <img src="/ori.png" alt="Logo de la Empresa" class=" w-32 h-fit object-cover" />
-          </button>
-
-          <div class="hidden lg:block flex-1 max-w-md mx-8">
-            <div class="relative">
-              <svg lucideSearch class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" ></svg>
-              <input
-                type="search"
-                placeholder="Search products..."
-                [(ngModel)]="busquedad"
-                (keyup.enter)="miFuncion()"
-                class="pl-10 glass border-white/20 icon-neumorphic focus:border-primary/50 bg-white/30 dark:bg-white/5 rounded-2xl h-10 w-full"
-              />
-            </div>
-          </div>
-
-          <nav class="hidden lg:flex items-center gap-8">
-            <button [routerLink]="'/catalogo'" class="cursor-pointer text-md font-mono font-bold hover:text-primary transition-colors">
-              Catalogo
-            </button>
-            <button [routerLink]="'/colecciones'" class="cursor-pointer text-md font-mono font-bold hover:text-primary transition-colors">
-              Colecciones
-            </button>
-            <button [routerLink]="'/acerca'" class="cursor-pointer text-md font-mono font-bold hover:text-primary transition-colors">
-              Acerca de
-            </button>
-          </nav>
-
-          <div class="flex items-center gap-4 ml-8">
-            <button [routerLink]="'/auth/login'" class="icon-neumorphic cursor-pointer" aria-label="Account">
-              <svg lucideUser class="w-5 h-5"></svg>
-            </button>
-            <button [routerLink]="'/carrito'" class="icon-neumorphic relative cursor-pointer" aria-label="Cart">
-              @if (this.carrito.datosCarrito.length > 0) {
-                <span class="absolute top-1 right-1 w-2 h-2 bg-primary rounded-full"></span>
-              }
-              <svg lucideShoppingCart class="w-5 h-5"></svg>
-            </button>
-          </div>
+      <div class="hidden lg:block flex-1 max-w-md mx-8">
+        <div class="relative">
+          <svg
+            lucideSearch
+            class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground"
+          ></svg>
+          <input
+            type="search"
+            placeholder="Search products..."
+            [(ngModel)]="busquedad"
+            (keyup.enter)="miFuncion()"
+            class="pl-10 glass border-white/20 icon-neumorphic focus:border-primary/50 bg-white/30 dark:bg-white/5 rounded-2xl h-10 w-full"
+          />
         </div>
       </div>
+
+      <nav class="hidden lg:flex items-center gap-8">
+        <button
+          [routerLink]="'/catalogo'"
+          class="cursor-pointer text-md font-mono font-bold hover:text-primary transition-colors"
+        >
+          Catalogo
+        </button>
+        <button
+          [routerLink]="'/colecciones'"
+          class="cursor-pointer text-md font-mono font-bold hover:text-primary transition-colors"
+        >
+          Colecciones
+        </button>
+        <button
+          [routerLink]="'/acerca'"
+          class="cursor-pointer text-md font-mono font-bold hover:text-primary transition-colors"
+        >
+          Acerca de
+        </button>
+      </nav>
+
+      <div class="flex items-center gap-4 ml-8">
+        <button
+          [routerLink]="'/carrito'"
+          class="icon-neumorphic relative cursor-pointer"
+          aria-label="Cart"
+        >
+          @if (this.carrito.datosCarrito().length > 0) {
+            <span class="absolute top-1 right-1 w-2 h-2 bg-primary rounded-full"></span>
+          }
+          <svg lucideShoppingCart class="w-5 h-5"></svg>
+        </button>
+        @if (this.usuarioActivo.useri()) {
+          <button
+            [routerLink]="'/perfil/' + this.usuarioActivo.useri()?.user?.id"
+            class="icon-neumorphic cursor-pointer"
+            aria-label="Account"
+          >
+            <svg lucideSquareUserRound class="w-5 h-5"></svg>
+          </button>
+
+          <button
+            [routerLink]="'/auth/login'"
+            class="icon-neumorphic cursor-pointer"
+            aria-label="Account"
+            (click)="this.usuarioActivo.logout()"
+          >
+            <svg lucideLogOut class="w-5 h-5"></svg>
+          </button>
+        }
+        @else {
+          <button [routerLink]="'/auth/login'" class="icon-neumorphic cursor-pointer" aria-label="Account">
+              <svg lucideUser class="w-5 h-5"></svg>
+            </button>
+        }
+        @if (this.usuarioActivo.useri()?.user?.roles?.includes('admin')) {
+          <button [routerLink]="'/admin'" class="icon-neumorphic cursor-pointer" aria-label="Admin">
+            <svg lucideBookUser class="w-5 h-5"></svg>
+          </button>
+        }
+      </div>
     </div>
+  </div>
+</div>

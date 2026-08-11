@@ -2,12 +2,13 @@ import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/cor
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
-import { LucideSearch, LucideShoppingCart, LucideUser } from '@lucide/angular';
+import { LucideBookUser, LucideLogOut, LucideSearch, LucideShoppingCart, LucideSquareUserRound, LucideUser } from '@lucide/angular';
 import { Carrito } from '../../service/carrito/carrito';
+import { Usuario } from '../../service/usuario/usuario';
 
 @Component({
   selector: 'app-navbar',
-  imports: [RouterLink, LucideUser, LucideShoppingCart, LucideSearch, FormsModule],
+  imports: [RouterLink, LucideUser, LucideShoppingCart, LucideSearch, FormsModule, LucideSquareUserRound, LucideLogOut, LucideBookUser],
   templateUrl: './navbar.html',
   styleUrl: './navbar.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -16,6 +17,7 @@ export class NavbarComponent {
   private route = inject(ActivatedRoute);
   private router = inject(Router);
   carrito = inject(Carrito);
+  usuarioActivo = inject(Usuario);
   busquedad = signal<string | null>(this.route.snapshot.queryParamMap.get('q'));
 
   constructor(){

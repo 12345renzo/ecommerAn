@@ -10,6 +10,7 @@ import { AcercaComponent } from './features/principal/acerca/acerca';
 import { CarritoComponent } from './features/principal/carrito/carrito';
 import { LoginComponent } from './features/auth/login/login';
 import { RegisterComponent } from './features/auth/register/register';
+import { DetallePerfilComponents } from './features/principal/detalle-perfil/detalle-perfil';
 
 export const routes: Routes = [
   {
@@ -22,6 +23,7 @@ export const routes: Routes = [
       { path: 'colecciones', component: ColeccionesComponent }, //colecciones
       { path: 'carrito', component: CarritoComponent }, //carrito
       { path: 'acerca', component: AcercaComponent }, //acerca
+      { path: 'perfil/:id', component: DetallePerfilComponents }, //detalle perfil
     ],
   },
   {

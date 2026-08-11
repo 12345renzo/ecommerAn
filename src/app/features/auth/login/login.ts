@@ -1,7 +1,9 @@
-import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { LucideEye, LucideEyeOff } from '@lucide/angular';
-import { RouterLink } from "@angular/router";
+import { Router, RouterLink } from '@angular/router';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Usuario } from '../../../service/usuario/usuario';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-login',
@@ -12,16 +14,32 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
 })
 export class LoginComponent {
   typoDatos = signal<string>('password');
+  operacionesAuth = inject(Usuario);
+  private router = inject(Router);
+  private toastr = inject(ToastrService);
   profileForm = new FormGroup({
-    email: new FormControl('', [Validators.required, Validators.email]),
-    password: new FormControl('', [Validators.required]),
+    email: new FormControl('', {
+      nonNullable: true,
+      validators: [Validators.required, Validators.email],
+    }),
+    password: new FormControl('', { nonNullable: true, validators: [Validators.required] }),
   });
 
   cambiarTypoDatos() {
     this.typoDatos.update((prev) => (prev === 'text' ? 'password' : 'text'));
   }
 
-  handleSubmit() {
-    console.log(this.profileForm.value.email, this.profileForm.value.password);
+  async handleSubmit() {
+    if (this.profileForm.invalid) {
+      return;
+    }
+    const { email, password } = this.profileForm.getRawValue();
+    const loginOk = await this.operacionesAuth.login(email, password);
+    if (loginOk) {
+      this.toastr.success('Usuario Correcto', 'Éxito');
+      this.router.navigate(['/']);
+    } else {
+      this.toastr.error('Usuario o contraseña incorrectos', 'Error');
+    }
   }
 }

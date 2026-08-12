@@ -1,0 +1,28 @@
+table.mat-mdc-table {
+  background: transparent;
+}
+
+tr.mat-mdc-header-row {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+th.mat-mdc-header-cell {
+  color: #1a95ad;
+  font-weight: 700;
+  font-size: 14px;
+  padding: 16px;
+}
+
+td.mat-mdc-cell {
+  font-size: 14px;
+  padding: 16px;
+  color: var(--foreground);
+}
+
+tr.mat-mdc-row {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+tr.mat-mdc-row:hover {
+  background: rgba(255, 255, 255, 0.08);
+}

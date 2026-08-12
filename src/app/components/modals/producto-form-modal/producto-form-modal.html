@@ -1,0 +1,115 @@
+<div class="w-full max-w-lg mx-auto bg-background">
+  <div class="flex items-center justify-between pt-6 pb-4 border-b border-white/20">
+    <div>
+      <p class="text-lg md:text-2xl font-bold text-[#1a95ad]">
+        {{ modo === 'create' ? 'Nuevo Producto' : 'Editar Producto' }}
+      </p>
+      <p class="text-[13px] md:text-[14px] text-foreground/70 mt-1">
+        {{ modo === 'create' ? 'Completa los datos del nuevo producto' : 'Modifica los datos del producto' }}
+      </p>
+    </div>
+    <button
+      (click)="cerrar()"
+      class="icon-neumorphic cursor-pointer"
+      aria-label="Cerrar modal"
+    >
+      <svg lucideX class="w-4 h-4"></svg>
+    </button>
+  </div>
+
+  <form [formGroup]="form" (ngSubmit)="guardar()" class="flex flex-col gap-4">
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+      <div class="flex flex-col gap-2 sm:col-span-2">
+        <p class="text-black font-bold text-[14px]">Título:</p>
+        <input
+          formControlName="title"
+          placeholder="Ejemplo: Camiseta Oversize"
+          class="glass font-medium text-gray-500 border-white/20 icon-neumorphic focus:border-primary/50 bg-white/30 dark:bg-white/5 rounded-2xl h-10 w-full px-4"
+        />
+      </div>
+
+      <div class="flex flex-col gap-2">
+        <p class="text-black font-bold text-[14px]">Precio:</p>
+        <input
+          type="number"
+          formControlName="price"
+          placeholder="0.00"
+          class="glass font-medium text-gray-500 border-white/20 icon-neumorphic focus:border-primary/50 bg-white/30 dark:bg-white/5 rounded-2xl h-10 w-full px-4"
+        />
+      </div>
+
+      <div class="flex flex-col gap-2">
+        <p class="text-black font-bold text-[14px]">Stock:</p>
+        <input
+          type="number"
+          formControlName="stock"
+          placeholder="0"
+          class="glass font-medium text-gray-500 border-white/20 icon-neumorphic focus:border-primary/50 bg-white/30 dark:bg-white/5 rounded-2xl h-10 w-full px-4"
+        />
+      </div>
+
+      <div class="flex flex-col gap-2 sm:col-span-2">
+        <p class="text-black font-bold text-[14px]">Género:</p>
+        <input
+          formControlName="gender"
+          placeholder="Ejemplo: Unisex"
+          class="glass font-medium text-gray-500 border-white/20 icon-neumorphic focus:border-primary/50 bg-white/30 dark:bg-white/5 rounded-2xl h-10 w-full px-4"
+        />
+      </div>
+
+      <div class="flex flex-col gap-2 sm:col-span-2">
+        <p class="text-black font-bold text-[14px]">Tallas (separadas por coma):</p>
+        <input
+          formControlName="sizes"
+          placeholder="Ejemplo: S, M, L, XL"
+          class="glass font-medium text-gray-500 border-white/20 icon-neumorphic focus:border-primary/50 bg-white/30 dark:bg-white/5 rounded-2xl h-10 w-full px-4"
+        />
+      </div>
+
+      <div class="flex flex-col gap-2 sm:col-span-2">
+        <p class="text-black font-bold text-[14px]">Tags (separados por coma):</p>
+        <input
+          formControlName="tags"
+          placeholder="Ejemplo: nuevo, oferta, verano"
+          class="glass font-medium text-gray-500 border-white/20 icon-neumorphic focus:border-primary/50 bg-white/30 dark:bg-white/5 rounded-2xl h-10 w-full px-4"
+        />
+      </div>
+
+      <div class="flex flex-col gap-2 sm:col-span-2">
+        <p class="text-black font-bold text-[14px]">URL de imagen:</p>
+        <input
+          formControlName="image"
+          placeholder="https://..."
+          class="glass font-medium text-gray-500 border-white/20 icon-neumorphic focus:border-primary/50 bg-white/30 dark:bg-white/5 rounded-2xl h-10 w-full px-4"
+        />
+      </div>
+
+      <div class="flex flex-col gap-2 sm:col-span-2">
+        <p class="text-black font-bold text-[14px]">Descripción:</p>
+        <textarea
+          formControlName="description"
+          rows="3"
+          placeholder="Descripción del producto"
+          class="glass font-medium text-gray-500 border-white/20 icon-neumorphic focus:border-primary/50 bg-white/30 dark:bg-white/5 rounded-2xl w-full p-4"
+        ></textarea>
+      </div>
+    </div>
+
+    <div class="flex items-center justify-end gap-4 pt-2 pb-2">
+      <button
+        type="button"
+        (click)="cerrar()"
+        class="border-2 border-[#1a95ad] icon-neumorphic py-1 px-5 rounded-[12px] hover:font-semibold cursor-pointer hover:bg-[#1a95ad] hover:text-white transition-all"
+      >
+        Cancelar
+      </button>
+      <button
+        type="submit"
+        [disabled]="form.invalid"
+        class="btn-neumorphic-primary px-8 cursor-pointer text-[14px] md:text-[16px] disabled:opacity-50 disabled:cursor-not-allowed"
+      >
+        {{ modo === 'create' ? 'Crear Producto' : 'Guardar Cambios' }}
+      </button>
+    </div>
+  </form>
+</div>

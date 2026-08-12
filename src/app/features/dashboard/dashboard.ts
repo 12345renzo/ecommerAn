@@ -1,10 +1,62 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { MatTableModule } from '@angular/material/table';
+import { LucidePencil, LucidePlus, LucideTrash2 } from '@lucide/angular';
+import { ToastrService } from 'ngx-toastr';
+import { UseProductoService } from '../../service/useProducto/use-producto';
+import { ProductoType } from '../../types/responseProductoTypes';
+import { ProductoFormModal } from '../../components/modals/producto-form-modal/producto-form-modal';
 
 @Component({
   selector: 'app-dashboard',
-  imports: [],
+  imports: [MatTableModule, LucidePencil, LucidePlus, LucideTrash2],
   templateUrl: './dashboard.html',
   styleUrl: './dashboard.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class Dashboard {}
+export class DashboardComponent {
+  getAllProduct = inject(UseProductoService);
+  private toastr = inject(ToastrService);
+  private dialog = inject(MatDialog);
+
+  displayedColumns: string[] = ['id', 'images', 'title', 'price', 'stock', 'description', 'acciones'];
+
+  productos = computed(() => this.getAllProduct.query.data()?.products ?? []);
+  pageTotal = computed(() => this.getAllProduct.query.data()?.pages ?? 1);
+  isLoading = computed(() => this.getAllProduct.query.isPending());
+  isError = computed(() => this.getAllProduct.query.isError());
+
+  agregarProducto() {
+    const dialogRef = this.dialog.open(ProductoFormModal, {
+      panelClass: 'producto-form-panel',
+      data: { modo: 'create' },
+      width: '600px',
+      maxWidth: '95vw',
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this.toastr.success('Producto creado correctamente', 'Éxito');
+      }
+    });
+  }
+
+  editarProducto(producto: ProductoType) {
+    const dialogRef = this.dialog.open(ProductoFormModal, {
+      panelClass: 'producto-form-panel',
+      data: { modo: 'edit', producto },
+      width: '600px',
+      maxWidth: '95vw',
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this.toastr.success(`Producto "${result.title}" actualizado`, 'Éxito');
+      }
+    });
+  }
+
+  eliminarProducto(producto: ProductoType) {
+    this.toastr.info(`Eliminar producto "${producto.title}"`, 'Info');
+  }
+}

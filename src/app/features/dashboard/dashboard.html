@@ -1,1 +1,94 @@
-<p>dashboard works!</p>
+<div class="w-full flex flex-col items-center justify-center">
+  <div class="w-full max-w-7xl px-5 sm:px-6 lg:px-8 py-6 mx-auto">
+    <div class="flex flex-row items-center justify-between gap-4 my-4 flex-wrap">
+      <div>
+        <p class="text-xl md:text-4xl font-bold leading-tight text-[#1a95ad] mb-1">
+          Lista de Productos
+        </p>
+        <p class="text-[15px] md:text-[18px] text-foreground/70">
+          Gestiona el inventario de tu tienda
+        </p>
+      </div>
+      <button
+        (click)="agregarProducto()"
+        class="btn-neumorphic-primary px-6 cursor-pointer text-[14px] md:text-[16px] flex items-center gap-2"
+      >
+        <svg lucidePlus class="w-5 h-5"></svg>
+        Agregar Producto
+      </button>
+    </div>
+
+    @if (isLoading()) {
+      <p class="text-center my-10 font-semibold text-xl">Cargando productos...</p>
+    } @else if (isError()) {
+      <p class="text-center my-10 font-semibold text-xl">Error al cargar productos</p>
+    } @else if (productos().length === 0) {
+      <p class="text-center my-10 font-semibold text-xl">No hay productos disponibles</p>
+    } @else {
+      <div class="card-neumorphic overflow-x-auto my-6">
+        <table mat-table [dataSource]="productos()">
+          <ng-container matColumnDef="id">
+            <th mat-header-cell *matHeaderCellDef>ID</th>
+            <td mat-cell *matCellDef="let element">{{ element.id }}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="images">
+            <th mat-header-cell *matHeaderCellDef>Imagen</th>
+            <td mat-cell *matCellDef="let element">
+              <img
+                [src]="element.images[0]"
+                [alt]="element.title"
+                class="w-16 h-16 object-cover rounded-lg"
+              />
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="title">
+            <th mat-header-cell *matHeaderCellDef>Nombre</th>
+            <td mat-cell *matCellDef="let element">{{ element.title }}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="price">
+            <th mat-header-cell *matHeaderCellDef>Precio</th>
+            <td mat-cell *matCellDef="let element">${{ element.price }}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="stock">
+            <th mat-header-cell *matHeaderCellDef>Stock</th>
+            <td mat-cell *matCellDef="let element">{{ element.stock }}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="description">
+            <th mat-header-cell *matHeaderCellDef>Descripción</th>
+            <td mat-cell *matCellDef="let element" class="max-w-xs truncate">{{ element.description }}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="acciones">
+            <th mat-header-cell *matHeaderCellDef class="text-center">Acciones</th>
+            <td mat-cell *matCellDef="let element">
+              <div class="flex items-center justify-center gap-3">
+                <button
+                  (click)="editarProducto(element)"
+                  class="icon-neumorphic cursor-pointer text-[#1a95ad] hover:text-[#157a8f]"
+                  aria-label="Editar producto"
+                >
+                  <svg lucidePencil class="w-4 h-4"></svg>
+                </button>
+                <button
+                  (click)="eliminarProducto(element)"
+                  class="icon-neumorphic cursor-pointer text-red-500 hover:text-red-600"
+                  aria-label="Eliminar producto"
+                >
+                  <svg lucideTrash2 class="w-4 h-4"></svg>
+                </button>
+              </div>
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+        </table>
+      </div>
+    }
+  </div>
+</div>

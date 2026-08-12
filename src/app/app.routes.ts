@@ -11,6 +11,7 @@ import { CarritoComponent } from './features/principal/carrito/carrito';
 import { LoginComponent } from './features/auth/login/login';
 import { RegisterComponent } from './features/auth/register/register';
 import { DetallePerfilComponents } from './features/principal/detalle-perfil/detalle-perfil';
+import { DashboardComponent } from './features/dashboard/dashboard';
 
 export const routes: Routes = [
   {
@@ -37,6 +38,8 @@ export const routes: Routes = [
   {
     path: 'admin',
     component: LayoutAdmin,
-    children: [],
+    children: [
+      { path: '', component: DashboardComponent },
+    ],
   }
 ];

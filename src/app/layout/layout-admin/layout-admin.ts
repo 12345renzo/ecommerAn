@@ -1,9 +1,9 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+import { NavbarAdmin } from "../../components/navbar-admin/navbar-admin";
 
 @Component({
-  selector: 'app-layout-admin',
-  imports: [RouterOutlet],
+  imports: [RouterOutlet, NavbarAdmin],
   templateUrl: './layout-admin.html',
   styleUrl: './layout-admin.css',
   changeDetection: ChangeDetectionStrategy.OnPush,

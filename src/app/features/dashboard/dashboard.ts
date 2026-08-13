@@ -6,10 +6,11 @@ import { ToastrService } from 'ngx-toastr';
 import { UseProductoService } from '../../service/useProducto/use-producto';
 import { ProductoType } from '../../types/responseProductoTypes';
 import { ProductoFormModal } from '../../components/modals/producto-form-modal/producto-form-modal';
+import { Paginator } from "../../components/paginator/paginator";
 
 @Component({
   selector: 'app-dashboard',
-  imports: [MatTableModule, LucidePencil, LucidePlus, LucideTrash2],
+  imports: [MatTableModule, LucidePencil, LucidePlus, LucideTrash2, Paginator],
   templateUrl: './dashboard.html',
   styleUrl: './dashboard.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -30,7 +31,7 @@ export class DashboardComponent {
     const dialogRef = this.dialog.open(ProductoFormModal, {
       panelClass: 'producto-form-panel',
       data: { modo: 'create' },
-      width: '600px',
+      width: '720px',
       maxWidth: '95vw',
     });
 
@@ -45,7 +46,7 @@ export class DashboardComponent {
     const dialogRef = this.dialog.open(ProductoFormModal, {
       panelClass: 'producto-form-panel',
       data: { modo: 'edit', producto },
-      width: '600px',
+      width: '720px',
       maxWidth: '95vw',
     });
 

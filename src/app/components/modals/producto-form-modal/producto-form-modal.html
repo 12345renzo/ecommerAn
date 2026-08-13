@@ -1,5 +1,5 @@
-<div class="w-full max-w-lg mx-auto bg-background">
-  <div class="flex items-center justify-between pt-6 pb-4 border-b border-white/20">
+<div class="w-full max-w-2xl mx-auto bg-background">
+  <div class="flex items-center justify-between px-4 pt-6 pb-4 border-b border-white/20">
     <div>
       <p class="text-lg md:text-2xl font-bold text-[#1a95ad]">
         {{ modo === 'create' ? 'Nuevo Producto' : 'Editar Producto' }}
@@ -17,81 +17,130 @@
     </button>
   </div>
 
-  <form [formGroup]="form" (ngSubmit)="guardar()" class="flex flex-col gap-4">
-    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-      <div class="flex flex-col gap-2 sm:col-span-2">
-        <p class="text-black font-bold text-[14px]">Título:</p>
-        <input
-          formControlName="title"
-          placeholder="Ejemplo: Camiseta Oversize"
-          class="glass font-medium text-gray-500 border-white/20 icon-neumorphic focus:border-primary/50 bg-white/30 dark:bg-white/5 rounded-2xl h-10 w-full px-4"
-        />
+  <form [formGroup]="form" (ngSubmit)="guardar()" class="flex flex-col gap-5 px-4 py-5">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+      <div class="flex flex-col gap-4">
+        <div class="flex flex-col gap-2">
+          <p class="text-black font-bold text-[14px]">Título:</p>
+          <input
+            formControlName="title"
+            placeholder="Ejemplo: Camiseta Oversize"
+            class="glass font-medium text-gray-500 border-white/20 icon-neumorphic focus:border-primary/50 bg-white/30 dark:bg-white/5 rounded-2xl h-10 w-full px-4"
+          />
+        </div>
+
+        <div class="flex flex-col gap-2">
+          <p class="text-black font-bold text-[14px]">Precio:</p>
+          <input
+            type="number"
+            formControlName="price"
+            placeholder="0.00"
+            class="glass font-medium text-gray-500 border-white/20 icon-neumorphic focus:border-primary/50 bg-white/30 dark:bg-white/5 rounded-2xl h-10 w-full px-4"
+          />
+        </div>
+
+        <div class="flex flex-col gap-2">
+          <p class="text-black font-bold text-[14px]">Stock:</p>
+          <input
+            type="number"
+            formControlName="stock"
+            placeholder="0"
+            class="glass font-medium text-gray-500 border-white/20 icon-neumorphic focus:border-primary/50 bg-white/30 dark:bg-white/5 rounded-2xl h-10 w-full px-4"
+          />
+        </div>
+
+        <div class="flex flex-col gap-2">
+          <p class="text-black font-bold text-[14px]">Género:</p>
+          <select
+            formControlName="gender"
+            class="glass font-medium text-gray-500 border-white/20 icon-neumorphic focus:border-primary/50 bg-white/30 dark:bg-white/5 rounded-2xl h-10 w-full px-4 cursor-pointer"
+          >
+            @for (genero of generos; track genero) {
+              <option [value]="genero">{{ genero }}</option>
+            }
+          </select>
+        </div>
       </div>
 
-      <div class="flex flex-col gap-2">
-        <p class="text-black font-bold text-[14px]">Precio:</p>
-        <input
-          type="number"
-          formControlName="price"
-          placeholder="0.00"
-          class="glass font-medium text-gray-500 border-white/20 icon-neumorphic focus:border-primary/50 bg-white/30 dark:bg-white/5 rounded-2xl h-10 w-full px-4"
-        />
-      </div>
+      <div class="flex flex-col gap-4">
+        <div class="flex flex-col gap-2">
+          <p class="text-black font-bold text-[14px]">Tallas (separadas por coma):</p>
+          <input
+            formControlName="sizes"
+            placeholder="Ejemplo: S, M, L, XL"
+            class="glass font-medium text-gray-500 border-white/20 icon-neumorphic focus:border-primary/50 bg-white/30 dark:bg-white/5 rounded-2xl h-10 w-full px-4"
+          />
+        </div>
 
-      <div class="flex flex-col gap-2">
-        <p class="text-black font-bold text-[14px]">Stock:</p>
-        <input
-          type="number"
-          formControlName="stock"
-          placeholder="0"
-          class="glass font-medium text-gray-500 border-white/20 icon-neumorphic focus:border-primary/50 bg-white/30 dark:bg-white/5 rounded-2xl h-10 w-full px-4"
-        />
-      </div>
+        <div class="flex flex-col gap-2">
+          <p class="text-black font-bold text-[14px]">Tags (separados por coma):</p>
+          <input
+            formControlName="tags"
+            placeholder="Ejemplo: nuevo, oferta, verano"
+            class="glass font-medium text-gray-500 border-white/20 icon-neumorphic focus:border-primary/50 bg-white/30 dark:bg-white/5 rounded-2xl h-10 w-full px-4"
+          />
+        </div>
 
-      <div class="flex flex-col gap-2 sm:col-span-2">
-        <p class="text-black font-bold text-[14px]">Género:</p>
-        <input
-          formControlName="gender"
-          placeholder="Ejemplo: Unisex"
-          class="glass font-medium text-gray-500 border-white/20 icon-neumorphic focus:border-primary/50 bg-white/30 dark:bg-white/5 rounded-2xl h-10 w-full px-4"
-        />
-      </div>
+        <div class="flex flex-col gap-2">
+          <p class="text-black font-bold text-[14px]">Slug:</p>
+          <input
+            formControlName="slug"
+            placeholder="Ejemplo: camiseta-oversize"
+            class="glass font-medium text-gray-500 border-white/20 icon-neumorphic focus:border-primary/50 bg-white/30 dark:bg-white/5 rounded-2xl h-10 w-full px-4"
+          />
+        </div>
 
-      <div class="flex flex-col gap-2 sm:col-span-2">
-        <p class="text-black font-bold text-[14px]">Tallas (separadas por coma):</p>
-        <input
-          formControlName="sizes"
-          placeholder="Ejemplo: S, M, L, XL"
-          class="glass font-medium text-gray-500 border-white/20 icon-neumorphic focus:border-primary/50 bg-white/30 dark:bg-white/5 rounded-2xl h-10 w-full px-4"
-        />
+        <div class="flex flex-col gap-2">
+          <p class="text-black font-bold text-[14px]">Descripción:</p>
+          <textarea
+            formControlName="description"
+            rows="4"
+            placeholder="Descripción del producto"
+            class="glass font-medium text-gray-500 border-white/20 icon-neumorphic focus:border-primary/50 bg-white/30 dark:bg-white/5 rounded-2xl w-full p-4"
+          ></textarea>
+        </div>
       </div>
+    </div>
 
-      <div class="flex flex-col gap-2 sm:col-span-2">
-        <p class="text-black font-bold text-[14px]">Tags (separados por coma):</p>
-        <input
-          formControlName="tags"
-          placeholder="Ejemplo: nuevo, oferta, verano"
-          class="glass font-medium text-gray-500 border-white/20 icon-neumorphic focus:border-primary/50 bg-white/30 dark:bg-white/5 rounded-2xl h-10 w-full px-4"
-        />
+    <div class="flex flex-col gap-2">
+      <div class="flex items-center justify-between">
+        <p class="text-black font-bold text-[14px]">Imágenes:</p>
+        <p class="text-[12px] font-medium text-foreground/70">{{ imagenes().length }}/5 (mínimo 2)</p>
       </div>
-
-      <div class="flex flex-col gap-2 sm:col-span-2">
-        <p class="text-black font-bold text-[14px]">URL de imagen:</p>
+      <label
+        for="archivo-imagen"
+        class="glass border-white/20 icon-neumorphic focus:border-primary/50 bg-white/30 dark:bg-white/5 rounded-2xl h-12 w-full flex items-center justify-center gap-2 cursor-pointer hover:bg-white/40 transition-colors"
+      >
+        <svg lucideImagePlus class="w-5 h-5 text-[#1a95ad]"></svg>
+        <span class="text-sm font-medium text-foreground/70">Seleccionar imágenes</span>
         <input
-          formControlName="image"
-          placeholder="https://..."
-          class="glass font-medium text-gray-500 border-white/20 icon-neumorphic focus:border-primary/50 bg-white/30 dark:bg-white/5 rounded-2xl h-10 w-full px-4"
+          id="archivo-imagen"
+          type="file"
+          accept="image/*"
+          multiple
+          (change)="onArchivosSeleccionados($event)"
+          class="hidden"
         />
-      </div>
+      </label>
 
-      <div class="flex flex-col gap-2 sm:col-span-2">
-        <p class="text-black font-bold text-[14px]">Descripción:</p>
-        <textarea
-          formControlName="description"
-          rows="3"
-          placeholder="Descripción del producto"
-          class="glass font-medium text-gray-500 border-white/20 icon-neumorphic focus:border-primary/50 bg-white/30 dark:bg-white/5 rounded-2xl w-full p-4"
-        ></textarea>
+      <div class="grid grid-cols-3 sm:grid-cols-5 gap-3 mt-1">
+        @for (img of imagenes(); track $index) {
+          <div class="relative group">
+            <img
+              [src]="img"
+              alt="Vista previa {{ $index + 1 }}"
+              class="w-full h-20 object-cover rounded-lg border border-white/20"
+            />
+            <button
+              type="button"
+              (click)="eliminarImagen($index)"
+              class="absolute -top-2 -right-2 p-1.5 rounded-full bg-red-500 text-white shadow-md hover:bg-red-600 transition-colors cursor-pointer"
+              aria-label="Eliminar imagen"
+            >
+              <svg lucideX class="w-3 h-3"></svg>
+            </button>
+          </div>
+        }
       </div>
     </div>
 

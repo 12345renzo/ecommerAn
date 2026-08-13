@@ -89,6 +89,8 @@
           <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
         </table>
       </div>
+
+      <app-paginator [pageTotal]="this.pageTotal()"></app-paginator>
     }
   </div>
 </div>

@@ -1,5 +1,5 @@
 import { computed, inject, Injectable, signal } from '@angular/core';
-import { injectMutation, injectQuery, QueryClient } from '@tanstack/angular-query-experimental';
+import { injectMutation, injectQuery, injectQueryClient } from '@tanstack/angular-query-experimental';
 import { GetAllProductService } from '../get-all-producto/get-all-product';
 import { ActivatedRoute } from '@angular/router';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
@@ -16,7 +16,7 @@ export class UseProductoService {
   getAllProducto = inject(GetAllProductService);
   newProducto = inject(NewProducto);
   upProducto = inject(UpdProducto);
-  queryClient = inject(QueryClient);
+  queryClient = injectQueryClient();
   private route = inject(ActivatedRoute);
 
   // 1. Valores iniciales desde el snapshot (sincrónico, evita un fetch extra)

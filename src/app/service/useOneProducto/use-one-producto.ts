@@ -1,6 +1,6 @@
 import { inject, Injectable, signal } from '@angular/core';
 import { GetProducto } from '../get-producto/get-producto';
-import { injectQuery, QueryClient } from '@tanstack/angular-query-experimental';
+import { injectQuery, injectQueryClient } from '@tanstack/angular-query-experimental';
 import { ActivatedRoute } from '@angular/router';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
@@ -9,7 +9,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 })
 export class UseOneProducto {
   getProducto = inject(GetProducto);
-  queryClient = inject(QueryClient);
+  queryClient = injectQueryClient();
   private route = inject(ActivatedRoute);
 
   codigo = signal<string | null>(this.route.snapshot.paramMap.get('id'));

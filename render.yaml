@@ -3,7 +3,7 @@ services:
     name: ecommers-angular
     runtime: node
     plan: free
-    buildCommand: npm install && npm run build
+    buildCommand: npm install --legacy-peer-deps && npx ng build
     startCommand: node dist/ecommersAngular/server/server.mjs
     envVars:
       - key: NODE_ENV

@@ -1,14 +1,21 @@
 import { computed, inject, Injectable, signal } from '@angular/core';
-import { injectQuery, QueryClient } from '@tanstack/angular-query-experimental';
+import { injectMutation, injectQuery, QueryClient } from '@tanstack/angular-query-experimental';
 import { GetAllProductService } from '../get-all-producto/get-all-product';
 import { ActivatedRoute } from '@angular/router';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { NewProducto } from '../new-producto/new-producto';
+import { UpdProducto, ProductoParaEditar } from '../upd-producto/upd-producto';
+import { ProductoType } from '../../types/responseProductoTypes';
+
+type ProductoSinId = Omit<ProductoType, 'id' | 'user'>;
 
 @Injectable({
   providedIn: 'root',
 })
 export class UseProductoService {
   getAllProducto = inject(GetAllProductService);
+  newProducto = inject(NewProducto);
+  upProducto = inject(UpdProducto);
   queryClient = inject(QueryClient);
   private route = inject(ActivatedRoute);
 
@@ -19,7 +26,7 @@ export class UseProductoService {
   gender = signal<string | null>(this.route.snapshot.queryParamMap.get('gender'));
   page = signal<string | null>(this.route.snapshot.queryParamMap.get('page'));
   q = signal<string | null>(this.route.snapshot.queryParamMap.get('q'));
-  
+
   constructor() {
     this.route.queryParamMap.pipe(takeUntilDestroyed()).subscribe((params) => {
       this.minPrice.set(params.get('minPrice'));
@@ -32,9 +39,9 @@ export class UseProductoService {
       this.q.set(params.get('q'));
     });
   }
-  
-  offset = computed(() => ((Number(this.page()) - 1 )* 9));
-  
+
+  offset = computed(() => (Number(this.page()) - 1) * 9);
+
   query = injectQuery(() => ({
     queryKey: [
       'productos',
@@ -59,5 +66,23 @@ export class UseProductoService {
       }),
     staleTime: 1000 * 60 * 5,
     retry: false,
+  }));
+
+  mutatePrducto = injectMutation(() => ({
+    mutationFn: (payload: ProductoSinId) => this.newProducto.addProducto(payload),
+    onSuccess: (producto: ProductoType) => {
+      this.queryClient.invalidateQueries({ queryKey: ['productos'] });
+      this.queryClient.invalidateQueries({ queryKey: ['producto', String(producto.id)] });
+      this.queryClient.setQueryData(['producto', String(producto.id)], producto);
+    },
+  }));
+
+  mutateEditar = injectMutation(() => ({
+    mutationFn: (payload: ProductoParaEditar) => this.upProducto.updateProducto(payload),
+    onSuccess: (producto: ProductoType) => {
+      this.queryClient.invalidateQueries({ queryKey: ['productos'] });
+      this.queryClient.invalidateQueries({ queryKey: ['producto', String(producto.id)] });
+      this.queryClient.setQueryData(['producto', String(producto.id)], producto);
+    },
   }));
 }

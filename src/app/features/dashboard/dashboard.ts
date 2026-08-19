@@ -6,7 +6,7 @@ import { ToastrService } from 'ngx-toastr';
 import { UseProductoService } from '../../service/useProducto/use-producto';
 import { ProductoType } from '../../types/responseProductoTypes';
 import { ProductoFormModal } from '../../components/modals/producto-form-modal/producto-form-modal';
-import { Paginator } from "../../components/paginator/paginator";
+import { Paginator } from '../../components/paginator/paginator';
 
 @Component({
   selector: 'app-dashboard',
@@ -20,7 +20,15 @@ export class DashboardComponent {
   private toastr = inject(ToastrService);
   private dialog = inject(MatDialog);
 
-  displayedColumns: string[] = ['id', 'images', 'title', 'price', 'stock', 'description', 'acciones'];
+  displayedColumns: string[] = [
+    'id',
+    'images',
+    'title',
+    'price',
+    'stock',
+    'description',
+    'acciones',
+  ];
 
   productos = computed(() => this.getAllProduct.query.data()?.products ?? []);
   pageTotal = computed(() => this.getAllProduct.query.data()?.pages ?? 1);
@@ -35,9 +43,14 @@ export class DashboardComponent {
       maxWidth: '95vw',
     });
 
-    dialogRef.afterClosed().subscribe((result) => {
+    dialogRef.afterClosed().subscribe(async (result) => {
       if (result) {
-        this.toastr.success('Producto creado correctamente', 'Éxito');
+        try {
+          await this.getAllProduct.mutatePrducto.mutateAsync(result);
+          this.toastr.success('Producto creado correctamente', 'Éxito');
+        } catch {
+          this.toastr.error('No se pudo crear el producto', 'Error');
+        }
       }
     });
   }
@@ -50,9 +63,14 @@ export class DashboardComponent {
       maxWidth: '95vw',
     });
 
-    dialogRef.afterClosed().subscribe((result) => {
+    dialogRef.afterClosed().subscribe(async (result) => {
       if (result) {
-        this.toastr.success(`Producto "${result.title}" actualizado`, 'Éxito');
+        try {
+          await this.getAllProduct.mutateEditar.mutateAsync(result);
+          this.toastr.success(`Producto "${result.title}" actualizado`, 'Éxito');
+        } catch {
+          this.toastr.error('No se pudo actualizar el producto', 'Error');
+        }
       }
     });
   }

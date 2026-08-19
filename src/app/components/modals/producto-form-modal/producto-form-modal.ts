@@ -4,6 +4,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { LucideImagePlus, LucideX } from '@lucide/angular';
 import { ToastrService } from 'ngx-toastr';
 import { ProductoType } from '../../../types/responseProductoTypes';
+import { Size } from '../../../types/tallasTypes';
 
 export interface ProductoFormData {
   modo: 'create' | 'edit';
@@ -101,7 +102,7 @@ export class ProductoFormModal {
       description: datos.description,
       slug: datos.slug,
       stock: Number(datos.stock),
-      sizes: separarLista(datos.sizes),
+      sizes: separarLista(datos.sizes) as Size[],
       gender: datos.gender,
       tags: separarLista(datos.tags),
       images: this.imagenes(),

@@ -12,6 +12,7 @@ import { LoginComponent } from './features/auth/login/login';
 import { RegisterComponent } from './features/auth/register/register';
 import { DetallePerfilComponents } from './features/principal/detalle-perfil/detalle-perfil';
 import { DashboardComponent } from './features/dashboard/dashboard';
+import { isAuthenticatedGuard, isNotAuthenticatedGuard } from './guards/auth.guard';
 
 export const routes: Routes = [
   {
@@ -24,12 +25,13 @@ export const routes: Routes = [
       { path: 'colecciones', component: ColeccionesComponent }, //colecciones
       { path: 'carrito', component: CarritoComponent }, //carrito
       { path: 'acerca', component: AcercaComponent }, //acerca
-      { path: 'perfil/:id', component: DetallePerfilComponents }, //detalle perfil
+      { path: 'perfil/:id', component: DetallePerfilComponents, canActivate: [isAuthenticatedGuard] }, //detalle perfil
     ],
   },
   {
     path: 'auth',
     component: LayoutAuth,
+    canActivate: [isNotAuthenticatedGuard],
     children: [
       { path: 'login', component: LoginComponent },
       { path: 'register', component: RegisterComponent },
@@ -38,6 +40,7 @@ export const routes: Routes = [
   {
     path: 'admin',
     component: LayoutAdmin,
+    canActivate: [isAuthenticatedGuard],
     children: [
       { path: '', component: DashboardComponent },
     ],
